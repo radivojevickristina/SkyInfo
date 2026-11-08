@@ -1,0 +1,817 @@
+<div class="profile-page">
+
+  <main class="profile-content">
+
+    <!-- NASLOV -->
+
+    <section class="profile-heading">
+
+      <div>
+
+        <small>
+          {{'DOCUMENTS.ACCOUNT_LABEL' | translate}}
+        </small>
+
+        <h1>
+          {{'DOCUMENTS.TITLE' | translate}}
+        </h1>
+
+        <p>
+          {{'DOCUMENTS.DESCRIPTION' | translate}}
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="add-document-button"
+        (click)="openAddDocument()"
+      >
+        <span>+</span>
+        {{'DOCUMENTS.ADD_BUTTON' | translate}}
+      </button>
+
+    </section>
+
+
+    <!-- PRIMARNI DOKUMENT -->
+
+    <section class="documents-section">
+
+      <div class="section-title">
+
+        <small>
+          {{'DOCUMENTS.MY_DOCUMENT' | translate}}
+        </small>
+
+        <h2>
+          {{'DOCUMENTS.PRIMARY_TRAVEL_DOCUMENT' | translate}}
+        </h2>
+
+      </div>
+
+
+      <article class="document-card primary-document">
+
+        <div class="document-card-header">
+
+          <div class="document-card-top">
+
+            <div class="document-icon primary-document-icon">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                <circle cx="12" cy="10" r="3"></circle>
+                <path d="M8 17h8"></path>
+              </svg>
+
+            </div>
+
+
+            <div class="document-owner">
+
+              <div class="document-type-row">
+
+                <small>
+                  {{getDocumentTypeKey(primaryDocument.documentType) | translate}}
+                </small>
+
+                <span class="primary-badge">
+                  {{'DOCUMENTS.PRIMARY_BADGE' | translate}}
+                </span>
+
+              </div>
+
+
+              <strong>
+                {{primaryDocument.firstName}}
+                {{primaryDocument.lastName}}
+              </strong>
+
+              <span class="document-number">
+                {{primaryDocument.documentNumber}}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="change-document-button"
+            (click)="openChangePrimaryDocument()"
+          >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"></path>
+            </svg>
+
+            {{'DOCUMENTS.CHANGE_DOCUMENT' | translate}}
+
+          </button>
+
+        </div>
+
+
+        <div class="document-divider"></div>
+
+
+        <div class="document-information">
+
+          <div>
+
+            <span>
+              {{'COMMON.NATIONALITY' | translate}}
+            </span>
+
+            <strong>
+              {{primaryDocument.nationality}}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              {{'COMMON.DATE_OF_BIRTH' | translate}}
+            </span>
+
+            <strong>
+              {{
+                primaryDocument.dateOfBirth
+                  | date:'dd.MM.yyyy.':'UTC'
+              }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              {{'COMMON.SEX' | translate}}
+            </span>
+
+            <strong>
+              {{getSexKey(primaryDocument.sex) | translate}}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              {{'COMMON.VALID_UNTIL' | translate}}
+            </span>
+
+            <strong>
+              {{
+                primaryDocument.expirationDate
+                  | date:'dd.MM.yyyy.':'UTC'
+              }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- DODATNI DOKUMENTI -->
+
+    <section class="documents-section secondary-section">
+
+      <div class="section-title">
+
+        <small>
+          {{'DOCUMENTS.FAMILY_COMPANIONS' | translate}}
+        </small>
+
+        <h2>
+          {{'DOCUMENTS.ADDITIONAL_DOCUMENTS' | translate}}
+        </h2>
+
+      </div>
+
+
+      <div
+        class="empty-documents"
+        *ngIf="secondaryTravelDocuments.length==0"
+      >
+
+        <div class="empty-icon">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14"></path>
+            <path d="M5 12h14"></path>
+          </svg>
+
+        </div>
+
+        <strong>
+          {{'DOCUMENTS.NO_ADDITIONAL' | translate}}
+        </strong>
+
+        <p>
+          {{'DOCUMENTS.NO_ADDITIONAL_DESC' | translate}}
+        </p>
+
+        <button
+          type="button"
+          (click)="openAddDocument()"
+        >
+          {{'DOCUMENTS.ADD_FIRST' | translate}}
+        </button>
+
+      </div>
+
+
+      <div
+        class="secondary-documents-grid"
+        *ngIf="secondaryTravelDocuments.length>0"
+      >
+
+        <article
+          class="document-card secondary-document"
+          *ngFor="let document of secondaryTravelDocuments"
+        >
+
+          <div class="document-card-header">
+
+            <div class="document-card-top">
+
+              <div class="document-icon">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                  <circle cx="12" cy="10" r="3"></circle>
+                  <path d="M8 17h8"></path>
+                </svg>
+
+              </div>
+
+
+              <div class="document-owner">
+
+                <small>
+                  {{getDocumentTypeKey(document.documentType) | translate}}
+                </small>
+
+                <strong>
+                  {{document.firstName}}
+                  {{document.lastName}}
+                </strong>
+
+                <span>
+                  {{document.documentNumber}}
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="delete-document-button"
+              (click)="deleteSecondaryDocument(document.documentNumber)"
+            >
+              {{'COMMON.DELETE' | translate}}
+            </button>
+
+          </div>
+
+
+          <div class="document-information">
+
+            <div>
+
+              <span>
+                {{'COMMON.NATIONALITY' | translate}}
+              </span>
+
+              <strong>
+                {{document.nationality}}
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                {{'COMMON.DATE_OF_BIRTH' | translate}}
+              </span>
+
+              <strong>
+                {{
+                  document.dateOfBirth
+                    | date:'dd.MM.yyyy.':'UTC'
+                }}
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                {{'COMMON.SEX' | translate}}
+              </span>
+
+              <strong>
+                {{getSexKey(document.sex) | translate}}
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                {{'COMMON.VALID_UNTIL' | translate}}
+              </span>
+
+              <strong>
+                {{
+                  document.expirationDate
+                    | date:'dd.MM.yyyy.':'UTC'
+                }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- MODAL -->
+
+    <div
+      class="modal-background"
+      *ngIf="addingDocument"
+    >
+
+      <div class="add-document-modal">
+
+        <!-- HEADER -->
+
+        <div class="modal-header">
+
+          <div>
+
+            <small>
+              {{
+                (
+                  changingPrimaryDocument
+                    ? 'DOCUMENTS.CHANGE_MODE_LABEL'
+                    : 'DOCUMENTS.NEW_MODE_LABEL'
+                ) | translate
+              }}
+            </small>
+
+            <h2>
+              {{
+                (
+                  changingPrimaryDocument
+                    ? 'DOCUMENTS.CHANGE_MODE_TITLE'
+                    : 'DOCUMENTS.ADD_MODE_TITLE'
+                ) | translate
+              }}
+            </h2>
+
+            <p>
+              {{
+                (
+                  changingPrimaryDocument
+                    ? 'DOCUMENTS.CHANGE_MODE_DESC'
+                    : 'DOCUMENTS.ADD_MODE_DESC'
+                ) | translate
+              }}
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="close-button"
+            (click)="closeAddDocument()"
+            [disabled]="isReadingPassport"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- IME I PREZIME -->
+
+        <div class="form-grid">
+
+          <div class="field">
+
+            <label for="secondaryFirstName">
+              {{'DOCUMENTS.OWNER_FIRST_NAME' | translate}}
+            </label>
+
+            <input
+              id="secondaryFirstName"
+              name="secondaryFirstName"
+              type="text"
+              [placeholder]="'DOCUMENTS.FIRST_NAME_PLACEHOLDER' | translate"
+              [(ngModel)]="secondaryFirstName"
+              [readonly]="changingPrimaryDocument"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="secondaryLastName">
+              {{'DOCUMENTS.OWNER_LAST_NAME' | translate}}
+            </label>
+
+            <input
+              id="secondaryLastName"
+              name="secondaryLastName"
+              type="text"
+              [placeholder]="'DOCUMENTS.LAST_NAME_PLACEHOLDER' | translate"
+              [(ngModel)]="secondaryLastName"
+              [readonly]="changingPrimaryDocument"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- UPLOAD -->
+
+        <div class="upload-section">
+
+          <label
+            for="secondaryPassportImage"
+            class="upload-box"
+            [class.reading]="isReadingPassport"
+          >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 16V4"></path>
+              <path d="m7 9 5-5 5 5"></path>
+              <path d="M5 20h14"></path>
+            </svg>
+
+
+            <strong *ngIf="!isReadingPassport">
+              {{'DOCUMENTS.SELECT_IMAGE' | translate}}
+            </strong>
+
+            <strong *ngIf="isReadingPassport">
+              {{'OCR.READING' | translate}}
+            </strong>
+
+
+            <span *ngIf="!isReadingPassport">
+              {{'DOCUMENTS.FILE_INFO' | translate}}
+            </span>
+
+            <span *ngIf="isReadingPassport">
+              {{'DOCUMENTS.WAIT_MRZ' | translate}}
+            </span>
+
+
+            <input
+              id="secondaryPassportImage"
+              type="file"
+              accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+              [disabled]="isReadingPassport"
+              (change)="onPassportSelected($event)"
+            >
+
+          </label>
+
+
+          <div
+            class="passport-preview"
+            *ngIf="passportPreview!=''"
+          >
+
+            <img
+              [src]="passportPreview"
+              [alt]="'DOCUMENTS.ALT_PREVIEW' | translate"
+            >
+
+
+            <div>
+
+              <strong>
+                {{passportFileName}}
+              </strong>
+
+              <span *ngIf="isReadingPassport">
+                {{'OCR.READING' | translate}}
+              </span>
+
+              <span
+                class="read-success"
+                *ngIf="passportRead && !isReadingPassport"
+              >
+                {{'OCR.READ_SUCCESS' | translate}}
+              </span>
+
+              <span
+                *ngIf="!passportRead && !isReadingPassport"
+              >
+                {{'DOCUMENTS.IMAGE_SELECTED' | translate}}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- OCR STATUS -->
+
+        <div
+          class="ocr-status reading-status"
+          *ngIf="isReadingPassport"
+        >
+
+          <span class="ocr-loader"></span>
+
+          <div>
+
+            <strong>
+              {{'DOCUMENTS.OCR_TITLE' | translate}}
+            </strong>
+
+            <p>
+              {{'DOCUMENTS.OCR_DESC' | translate}}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="ocr-status success-status"
+          *ngIf="passportRead && !isReadingPassport"
+        >
+
+          <span class="success-icon">
+            ✓
+          </span>
+
+          <div>
+
+            <strong>
+              {{'OCR.READ_SUCCESS' | translate}}
+            </strong>
+
+            <p>
+              {{'DOCUMENTS.CHECK_READ_DATA' | translate}}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- OČITANI PODACI -->
+
+        <div
+          class="document-form"
+          *ngIf="passportRead"
+        >
+
+          <div class="document-form-title">
+
+            <small>
+              {{'DOCUMENTS.READ_DATA_LABEL' | translate}}
+            </small>
+
+            <h3>
+              {{'DOCUMENTS.DATA_TITLE' | translate}}
+            </h3>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label for="secondaryDocumentType">
+                {{'DOCUMENTS.DOCUMENT_TYPE' | translate}}
+              </label>
+
+              <input
+                id="secondaryDocumentType"
+                name="secondaryDocumentType"
+                type="text"
+                [value]="getDocumentTypeKey(secondaryDocumentType) | translate"
+                readonly
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="secondaryDocumentNumber">
+                {{'DOCUMENTS.DOCUMENT_NUMBER' | translate}}
+              </label>
+
+              <input
+                id="secondaryDocumentNumber"
+                name="secondaryDocumentNumber"
+                type="text"
+                [(ngModel)]="secondaryDocumentNumber"
+                readonly
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="secondaryNationality">
+                {{'COMMON.NATIONALITY' | translate}}
+              </label>
+
+              <input
+                id="secondaryNationality"
+                name="secondaryNationality"
+                type="text"
+                [(ngModel)]="secondaryNationality"
+                readonly
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="secondarySex">
+                {{'COMMON.SEX' | translate}}
+              </label>
+
+              <select
+                id="secondarySex"
+                name="secondarySex"
+                [(ngModel)]="secondarySex"
+              >
+
+                <option value="">
+                  {{'DOCUMENTS.SELECT_SEX' | translate}}
+                </option>
+
+                <option value="M">
+                  {{'COMMON.MALE' | translate}}
+                </option>
+
+                <option value="F">
+                  {{'COMMON.FEMALE' | translate}}
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                {{'COMMON.DATE_OF_BIRTH' | translate}}
+              </label>
+
+              <input
+                type="text"
+                [value]="
+                  (
+                    secondaryDateOfBirth
+                      | date:'dd.MM.yyyy.':'UTC'
+                  ) || ''
+                "
+                readonly
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                {{'DOCUMENTS.DOCUMENT_EXPIRATION' | translate}}
+              </label>
+
+              <input
+                type="text"
+                [value]="
+                  (
+                    secondaryExpirationDate
+                      | date:'dd.MM.yyyy.':'UTC'
+                  ) || ''
+                "
+                readonly
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PORUKA -->
+
+        <p
+          class="modal-message"
+          *ngIf="
+            messageKey!='' &&
+            messageKey!='OCR.READ_SUCCESS' &&
+            messageKey!='OCR.READING'
+          "
+        >
+          {{messageKey | translate}}
+        </p>
+
+
+        <!-- DUGMAD -->
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="closeAddDocument()"
+            [disabled]="isReadingPassport"
+          >
+            {{'COMMON.CANCEL' | translate}}
+          </button>
+
+
+          <button
+            type="button"
+            class="save-document-button"
+            (click)="saveDocument()"
+            [disabled]="isReadingPassport || !passportRead"
+          >
+
+            {{
+              (
+                changingPrimaryDocument
+                  ? 'DOCUMENTS.CHANGE_DOCUMENT'
+                  : 'DOCUMENTS.ADD_BUTTON'
+              ) | translate
+            }}
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <footer class="dashboard-footer">
+
+    <span>
+      © 2026 SkyInfo
+    </span>
+
+    <div>
+      <a href="#">{{'COMMON.PRIVACY' | translate}}</a>
+      <a href="#">{{'COMMON.TERMS' | translate}}</a>
+      <a href="#">{{'COMMON.HELP' | translate}}</a>
+    </div>
+
+  </footer>
+
+</div>

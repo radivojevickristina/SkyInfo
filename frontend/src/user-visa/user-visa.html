@@ -1,0 +1,583 @@
+<div class="dashboard-page">
+
+
+  <main class="dashboard-content">
+
+    <section class="welcome-section">
+
+      <div>
+
+        <h1>
+          {{'VISA.USER_TITLE_FIRST' | translate}}
+          <span>{{'VISA.USER_TITLE_SECOND' | translate}}</span>
+        </h1>
+
+        <p>{{'VISA.USER_DESCRIPTION' | translate}}</p>
+
+      </div>
+
+      <div class="document-status-card">
+
+        <span class="document-status-icon">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+            <circle cx="12" cy="10" r="3"></circle>
+            <path d="M8 17h8"></path>
+          </svg>
+
+        </span>
+
+        <div>
+
+          <small>{{'COMMON.PRIMARY_DOCUMENT' | translate}}</small>
+
+          <strong>
+            {{getDocumentTypeKey(primaryDocument.documentType) | translate}}
+          </strong>
+
+          <span>{{primaryDocument.documentNumber}}</span>
+
+        </div>
+
+        <i [class.document-expired]="!isDocumentValid(primaryDocument.expirationDate)">
+          {{
+            (isDocumentValid(primaryDocument.expirationDate)
+              ? 'COMMON.VALID'
+              : 'COMMON.EXPIRED') | translate
+          }}
+        </i>
+
+      </div>
+
+    </section>
+
+    <section class="visa-search-card">
+
+      <div class="search-title">
+
+        <span class="search-title-icon">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18"></path>
+            <path d="M12 3a15 15 0 0 1 0 18"></path>
+            <path d="M12 3a15 15 0 0 0 0 18"></path>
+          </svg>
+
+        </span>
+
+        <div>
+          <small>{{'VISA.CHECK_TRAVEL_DOCUMENTS' | translate}}</small>
+          <h2>{{'VISA.TRAVEL_DATA' | translate}}</h2>
+        </div>
+
+      </div>
+
+      <div class="visa-form">
+
+        <div class="field">
+
+          <label for="passportNationality">
+            {{'VISA.PASSPORT_COUNTRY' | translate}}
+          </label>
+
+          <div class="country-autocomplete">
+
+            <div class="input-wrapper">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                <path d="M8 8h8"></path>
+                <path d="M8 12h8"></path>
+                <path d="M8 16h5"></path>
+              </svg>
+
+              <input
+                id="passportNationality"
+                name="passportNationality"
+                type="text"
+                autocomplete="off"
+                [placeholder]="'VISA.PASSPORT_COUNTRY_PLACEHOLDER' | translate"
+                [(ngModel)]="passportCountryText"
+                (input)="onPassportCountryInput()"
+                (focus)="showPassportCountrySuggestions()"
+                (blur)="closePassportCountrySuggestions()"
+              >
+
+            </div>
+
+            <div class="country-suggestions" *ngIf="passportCountrySuggestions.length>0">
+
+              <button
+                type="button"
+                class="country-suggestion"
+                *ngFor="let country of passportCountrySuggestions"
+                (mousedown)="selectPassportCountry(country)"
+              >
+                <span>{{country.name}}</span>
+                <strong>{{country.code}}</strong>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="field">
+
+          <label for="originCountry">
+            {{'VISA.ORIGIN' | translate}}
+          </label>
+
+          <div class="country-autocomplete">
+
+            <div class="input-wrapper">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 18h16"></path>
+                <path d="M6 14 18 6"></path>
+                <path d="m9 7 3 3"></path>
+              </svg>
+
+              <input
+                id="originCountry"
+                name="originCountry"
+                type="text"
+                autocomplete="off"
+                [placeholder]="'VISA.ORIGIN_PLACEHOLDER' | translate"
+                [(ngModel)]="originCountryText"
+                (input)="onOriginCountryInput()"
+                (focus)="showOriginCountrySuggestions()"
+                (blur)="closeOriginCountrySuggestions()"
+              >
+
+            </div>
+
+            <div class="country-suggestions" *ngIf="originCountrySuggestions.length>0">
+
+              <button
+                type="button"
+                class="country-suggestion"
+                *ngFor="let country of originCountrySuggestions"
+                (mousedown)="selectOriginCountry(country)"
+              >
+                <span>{{country.name}}</span>
+                <strong>{{country.code}}</strong>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="field">
+
+          <label for="destinationCountry">
+            {{'VISA.DESTINATION' | translate}}
+          </label>
+
+          <div class="country-autocomplete">
+
+            <div class="input-wrapper">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 18h16"></path>
+                <path d="M6 6 18 14"></path>
+                <path d="m9 13 3-3"></path>
+              </svg>
+
+              <input
+                id="destinationCountry"
+                name="destinationCountry"
+                type="text"
+                autocomplete="off"
+                [placeholder]="'VISA.DESTINATION_PLACEHOLDER' | translate"
+                [(ngModel)]="destinationCountryText"
+                (input)="onDestinationCountryInput()"
+                (focus)="showDestinationCountrySuggestions()"
+                (blur)="closeDestinationCountrySuggestions()"
+              >
+
+            </div>
+
+            <div class="country-suggestions" *ngIf="destinationCountrySuggestions.length>0">
+
+              <button
+                type="button"
+                class="country-suggestion"
+                *ngFor="let country of destinationCountrySuggestions"
+                (mousedown)="selectDestinationCountry(country)"
+              >
+                <span>{{country.name}}</span>
+                <strong>{{country.code}}</strong>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="field">
+
+          <label for="travelDate">
+            {{'VISA.TRAVEL_DATE' | translate}}
+          </label>
+
+          <div class="input-wrapper">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+              <path d="M8 3v4"></path>
+              <path d="M16 3v4"></path>
+              <path d="M3 10h18"></path>
+            </svg>
+
+            <input
+              id="travelDate"
+              name="travelDate"
+              type="date"
+              [(ngModel)]="travelDate"
+              [min]="today"
+            >
+
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="check-button"
+          [disabled]="isLoading"
+          (click)="checkTravelRequirements()"
+        >
+          {{
+            isLoading
+              ? ('VISA.CHECKING' | translate)
+              : ('VISA.CHECK' | translate)
+          }}
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+
+        </button>
+
+      </div>
+
+      <p class="visa-message" *ngIf="travelRequirementsMessageKey!=''">
+        {{travelRequirementsMessageKey | translate}}
+      </p>
+
+    </section>
+
+    <section class="dashboard-grid" *ngIf="travelRequirements">
+
+      <div class="main-column">
+
+        <article class="card visa-result-card">
+
+          <div class="card-header">
+
+            <div>
+
+              <small>{{'VISA.RESULT' | translate}}</small>
+
+              <h2>
+                {{selectedOriginName}}
+                →
+                {{selectedDestinationName}}
+              </h2>
+
+            </div>
+
+            <span
+              class="visa-status"
+              [class.invalid-document]="isVisaRequired() || !isDocumentValidityEnough()"
+            >
+              {{
+                isVisaRequired()
+                  ? ('VISA.STATUS_VISA_REQUIRED' | translate)
+                  : (getDocumentValidityStatusKey() | translate)
+              }}
+            </span>
+
+          </div>
+
+          <div class="visa-results-grid">
+
+            <div class="visa-result-item">
+
+              <span>{{'VISA.PASSPORT_COUNTRY' | translate}}</span>
+
+              <strong>
+                {{
+                  selectedPassportCountry?.name ||
+                  travelRequirements.data.passport.name
+                }}
+              </strong>
+
+            </div>
+
+            <div class="visa-result-item">
+
+              <span>{{'COMMON.DESTINATION' | translate}}</span>
+
+              <strong>
+                {{
+                  selectedDestinationCountry?.name ||
+                  travelRequirements.data.destination.name
+                }}
+              </strong>
+
+            </div>
+
+            <div class="visa-result-item">
+
+              <span>{{'VISA.VISA_REGIME' | translate}}</span>
+
+              <strong>
+                {{getVisaRuleText(travelRequirements.data.visa_rules.primary_rule.name)}}
+
+                <ng-container *ngIf="travelRequirements.data.visa_rules.primary_rule.duration">
+                  · {{travelRequirements.data.visa_rules.primary_rule.duration}}
+                </ng-container>
+              </strong>
+
+            </div>
+
+            <div
+              class="visa-result-item"
+              *ngIf="travelRequirements.data.visa_rules.secondary_rule"
+            >
+
+              <span>{{'VISA.ADDITIONAL_OPTION' | translate}}</span>
+
+              <strong>
+                {{getVisaRuleText(travelRequirements.data.visa_rules.secondary_rule.name)}}
+              </strong>
+
+            </div>
+
+            <div class="visa-result-item">
+
+              <span>{{'VISA.REQUIRED_PASSPORT_VALIDITY' | translate}}</span>
+
+              <strong>
+                {{getPassportValidityText(travelRequirements.data.destination.passport_validity)}}
+              </strong>
+
+            </div>
+
+            <div
+              class="visa-result-item"
+              *ngIf="travelRequirements.documentCheck && getRequiredValidityDays()!==null"
+            >
+
+              <span>{{'VISA.VALIDITY_COMPARISON' | translate}}</span>
+
+              <strong>
+                {{'VISA.REQUIRED' | translate}}:
+                {{getRequiredValidityDays()}}
+                {{'VISA.DAYS' | translate}}
+                ·
+                {{'VISA.REMAINING' | translate}}:
+                {{travelRequirements.documentCheck.daysRemaining}}
+                {{'VISA.DAYS' | translate}}
+              </strong>
+
+            </div>
+
+            <div
+              class="visa-result-item"
+              *ngIf="travelRequirements.documentCheck"
+            >
+
+              <span>{{'VISA.DOCUMENT_STATUS' | translate}}</span>
+
+              <strong>
+                {{getDocumentValidityStatusKey() | translate}}
+              </strong>
+
+            </div>
+
+            <div
+              class="visa-result-item"
+              *ngIf="travelRequirements.data.mandatory_registration"
+            >
+
+              <span>{{'VISA.MANDATORY_REGISTRATION' | translate}}</span>
+
+              <strong>
+                {{travelRequirements.data.mandatory_registration.name}}
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div
+            class="visa-exception"
+            *ngIf="
+              travelRequirements.data.visa_rules.exception_rule &&
+              travelRequirements.data.visa_rules.exception_rule.full_text
+            "
+          >
+
+            <strong>{{'VISA.SPECIAL_CONDITION' | translate}}</strong>
+
+            <p>
+              {{travelRequirements.data.visa_rules.exception_rule.full_text}}
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <aside class="side-column">
+
+        <article class="card">
+
+          <div class="card-header">
+
+            <div>
+              <small>{{'COMMON.TRAVEL_DOCUMENT' | translate}}</small>
+              <h2>{{'COMMON.PRIMARY_DOCUMENT' | translate}}</h2>
+            </div>
+
+          </div>
+
+          <div class="document-preview">
+
+            <span class="document-icon">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                <circle cx="12" cy="11" r="3"></circle>
+                <path d="M8 17h8"></path>
+              </svg>
+
+            </span>
+
+            <div>
+
+              <strong>
+                {{getDocumentTypeKey(primaryDocument.documentType) | translate}}
+              </strong>
+
+              <span>{{primaryDocument.documentNumber}}</span>
+
+            </div>
+
+            <small>
+              {{
+                (isDocumentValid(primaryDocument.expirationDate)
+                  ? 'COMMON.VALID'
+                  : 'COMMON.EXPIRED') | translate
+              }}
+            </small>
+
+          </div>
+
+          <div class="document-data">
+
+            <div>
+              <span>{{'COMMON.NATIONALITY' | translate}}</span>
+              <strong>{{primaryDocument.nationality}}</strong>
+            </div>
+
+            <div>
+              <span>{{'COMMON.VALID_UNTIL' | translate}}</span>
+              <strong>{{primaryDocument.expirationDate | date:'dd.MM.yyyy.':'UTC'}}</strong>
+            </div>
+
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="card-header">
+
+            <div>
+              <small>{{'VISA.TRIP' | translate}}</small>
+              <h2>{{'VISA.ENTERED_DATA' | translate}}</h2>
+            </div>
+
+          </div>
+
+          <div class="travel-summary">
+
+            <div>
+              <span>{{'COMMON.DEPARTURE' | translate}}</span>
+              <strong>{{selectedOriginName}}</strong>
+            </div>
+
+            <div>
+              <span>{{'COMMON.DESTINATION' | translate}}</span>
+              <strong>{{selectedDestinationName}}</strong>
+            </div>
+
+            <div>
+              <span>{{'VISA.TRAVEL_DATE' | translate}}</span>
+              <strong>{{travelDate | date:'dd.MM.yyyy.'}}</strong>
+            </div>
+
+          </div>
+
+        </article>
+
+        <article class="card information-card">
+
+          <div class="card-header">
+
+            <div>
+              <small>{{'VISA.IMPORTANT' | translate}}</small>
+              <h2>{{'VISA.INFORMATION_RESULT' | translate}}</h2>
+            </div>
+
+          </div>
+
+          <div class="information-content">
+
+            <span class="information-icon">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg>
+
+            </span>
+
+            <p>{{'VISA.USER_INFO_NOTE' | translate}}</p>
+
+          </div>
+
+        </article>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+  <footer class="dashboard-footer">
+
+    <span>© 2026 {{'COMMON.APP_NAME' | translate}}</span>
+
+    <div>
+      <a href="#">{{'COMMON.PRIVACY' | translate}}</a>
+      <a href="#">{{'COMMON.TERMS' | translate}}</a>
+      <a href="#">{{'COMMON.HELP' | translate}}</a>
+    </div>
+
+  </footer>
+
+</div>

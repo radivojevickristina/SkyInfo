@@ -1,0 +1,1453 @@
+:host{
+  --background:#06101d;
+  --surface:rgba(10,29,48,0.9);
+  --border:rgba(255,255,255,0.11);
+  --text:#f5f9fc;
+  --muted:#9cabb9;
+  --primary:#2f98e8;
+  --primary-light:#78c6fa;
+  --success:#65d9a2;
+  --warning:#f7c66b;
+
+  display:block;
+  min-height:100vh;
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+
+button,
+input,
+a{
+  font:inherit;
+}
+
+
+button{
+  border:0;
+}
+
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.guest-visa-page{
+  position:relative;
+  isolation:isolate;
+
+  min-height:100vh;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at 80% 12%,
+      rgba(46,139,210,0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 85%,
+      rgba(30,95,150,0.14),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #06101d 0%,
+      #0a2034 52%,
+      #07121f 100%
+    );
+}
+
+
+.guest-visa-page::before{
+  content:"";
+
+  position:absolute;
+  z-index:-3;
+  inset:0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.022) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.022) 1px,
+      transparent 1px
+    );
+
+  background-size:55px 55px;
+
+  opacity:0.4;
+}
+
+
+.airport-background,
+.background-overlay{
+  display:none;
+}
+
+/* =====================================================
+   NAPRAVI NALOG / PRIJAVI SE
+   ISTO KAO NA GUEST MAIN
+===================================================== */
+
+.guest-registration-card{
+  margin-top:25px;
+
+  padding:25px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:30px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,40,64,0.92),
+      rgba(8,23,40,0.88)
+    );
+
+  box-shadow:
+    0 24px 65px
+    rgba(0,0,0,0.22);
+}
+
+
+.guest-registration-card > div:first-child{
+  max-width:650px;
+}
+
+
+.guest-registration-card small{
+  display:block;
+
+  color:
+    var(--primary-light);
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:1.1px;
+
+  text-transform:uppercase;
+}
+
+
+.guest-registration-card h2{
+  margin:
+    5px
+    0
+    0;
+
+  color:#f3faff;
+
+  font-size:17px;
+  font-weight:650;
+}
+
+
+.guest-registration-card p{
+  margin:
+    8px
+    0
+    0;
+
+  color:
+    var(--muted);
+
+  font-size:10px;
+
+  line-height:1.6;
+}
+
+
+.dashboard-footer {
+  min-height: 68px;
+
+  padding:
+    0
+    max(40px, calc((100vw - 1360px) / 2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: rgba(182, 200, 215, 0.4);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.065);
+
+  font-size: 9px;
+}
+
+.dashboard-footer div {
+  display: flex;
+  gap: 22px;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.language-selector{
+  height:42px;
+  padding:0 6px;
+  display:flex;
+  align-items:center;
+  gap:3px;
+  border:1px solid rgba(255,255,255,0.11);
+  border-radius:11px;
+  background:rgba(255,255,255,0.035);
+}
+
+.language-selector button{
+  min-width:30px;
+  height:28px;
+  padding:0 7px;
+  color:rgba(211,226,238,0.48);
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  cursor:pointer;
+  font-size:9px;
+  font-weight:700;
+  transition:color 0.18s ease,background 0.18s ease;
+}
+
+.language-selector button:hover{
+  color:#ffffff;
+  background:rgba(255,255,255,0.05);
+}
+
+.language-selector button.active-language{
+  color:#ffffff;
+  background:rgba(47,152,232,0.18);
+}
+
+.language-selector > span{
+  width:1px;
+  height:14px;
+  background:rgba(255,255,255,0.08);
+}
+
+.guest-registration-actions{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+}
+
+
+/* =====================================================
+   DUGMAD
+===================================================== */
+
+.primary-button,
+.secondary-button{
+  min-width:125px;
+  height:42px;
+
+  padding:
+    0
+    15px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  text-decoration:none;
+
+  cursor:pointer;
+
+  font-size:10px;
+  font-weight:650;
+
+  white-space:nowrap;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+
+/* NAPRAVI NALOG */
+
+.primary-button{
+  color:#ffffff;
+
+  border:0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+}
+
+
+.primary-button:hover{
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+/* PRIJAVI SE */
+
+.secondary-button{
+  color:
+    rgba(222,236,246,0.7);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+  background:
+    rgba(255,255,255,0.025);
+}
+
+
+.secondary-button:hover{
+  color:#ffffff;
+
+  transform:
+    translateY(-1px);
+
+  border-color:
+    rgba(120,198,250,0.22);
+
+  background:
+    rgba(255,255,255,0.055);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:680px){
+
+  .guest-registration-card{
+    padding:18px;
+
+    align-items:flex-start;
+    flex-direction:column;
+
+    border-radius:14px;
+  }
+
+
+  .guest-registration-actions{
+    width:100%;
+  }
+
+
+  .primary-button,
+  .secondary-button{
+    flex:1;
+  }
+
+}
+
+
+@media(max-width:480px){
+
+  .guest-registration-actions{
+    flex-direction:column;
+  }
+
+
+  .primary-button,
+  .secondary-button{
+    width:100%;
+  }
+
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+  position:relative;
+  z-index:20;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  height:84px;
+
+  margin:0 auto;
+
+  display:flex;
+  align-items:center;
+
+  gap:45px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.08);
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+
+  padding:0;
+
+  color:#ffffff;
+
+  font-size:22px;
+  font-weight:700;
+}
+
+
+.logo svg{
+  width:36px;
+  height:36px;
+
+  padding:0;
+
+  fill:
+    rgba(74,172,255,0.18);
+
+  stroke:
+    var(--primary-light);
+
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  border:0;
+
+  background:none;
+
+  box-shadow:none;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navigation{
+  flex:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  gap:5px;
+}
+
+
+.navigation a{
+  position:relative;
+
+  height:42px;
+
+  padding:0 13px;
+
+  display:flex;
+  align-items:center;
+
+  color:
+    rgba(211,226,238,0.58);
+
+  font-size:12px;
+  font-weight:400;
+}
+
+
+.navigation a:hover,
+.navigation a.active{
+  color:#ffffff;
+}
+
+
+.navigation a.active::after{
+  content:"";
+
+  position:absolute;
+
+  right:13px;
+  bottom:-21px;
+  left:13px;
+
+  height:2px;
+
+  border-radius:999px;
+
+  background:
+    var(--primary-light);
+}
+
+
+/* =====================================================
+   GUEST HEADER ACTIONS
+===================================================== */
+
+.guest-header-actions{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+}
+
+
+.guest-label{
+  padding:
+    7px
+    10px;
+
+  color:
+    rgba(194,211,224,0.55);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,0.035);
+
+  font-size:9px;
+  font-weight:650;
+
+  text-transform:uppercase;
+
+  letter-spacing:0.8px;
+}
+
+
+.guest-login-button{
+  height:42px;
+
+  padding:
+    0
+    15px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  color:#ffffff;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+
+  font-size:10px;
+  font-weight:650;
+}
+
+
+.guest-login-button:hover{
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+.guest-login-button svg{
+  width:15px;
+  height:15px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.8;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.visa-main-content{
+  position:relative;
+  z-index:10;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  margin:0 auto;
+
+  padding:
+    54px
+    0
+    85px;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.visa-heading{
+  max-width:700px;
+
+  margin:
+    0
+    0
+    31px;
+}
+
+
+.visa-heading > small{
+  display:block;
+
+  margin-bottom:12px;
+
+  color:
+    var(--primary-light);
+
+  font-size:10px;
+  font-weight:700;
+
+  letter-spacing:1.4px;
+
+  text-transform:uppercase;
+}
+
+
+.visa-heading h1{
+  margin:0;
+
+  color:#ffffff;
+
+  font-size:
+    clamp(
+      39px,
+      4vw,
+      58px
+    );
+
+  font-weight:650;
+
+  line-height:1;
+
+  letter-spacing:-2.5px;
+}
+
+
+.visa-heading h1 span{
+  display:block;
+
+  color:
+    var(--primary-light);
+
+  font-weight:450;
+}
+
+
+.visa-heading p{
+  max-width:650px;
+
+  margin:
+    19px
+    0
+    0;
+
+  color:
+    var(--muted);
+
+  font-size:14px;
+
+  line-height:1.65;
+}
+
+
+/* =====================================================
+   VISA SEARCH CARD
+===================================================== */
+
+.visa-search-card{
+  position:relative;
+
+  width:100%;
+
+  padding:24px;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(44,131,198,0.11),
+      rgba(255,255,255,0.028)
+    );
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.visa-card-header{
+  margin-bottom:21px;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+
+.visa-card-header small,
+.visa-result-header small{
+  display:block;
+
+  color:
+    var(--primary-light);
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:1.1px;
+
+  text-transform:uppercase;
+}
+
+
+.visa-card-header h2,
+.visa-result-header h2{
+  margin:
+    5px
+    0
+    0;
+
+  color:#f3faff;
+
+  font-size:17px;
+  font-weight:650;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.visa-form{
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(180px,1fr)
+    );
+
+  align-items:end;
+
+  gap:13px;
+}
+
+
+.visa-field{
+  position:relative;
+
+  min-width:0;
+}
+
+
+.visa-field label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:
+    rgba(230,241,249,0.65);
+
+  font-size:10px;
+  font-weight:600;
+}
+
+
+.visa-input-wrapper{
+  position:relative;
+}
+
+
+.visa-input-wrapper svg{
+  position:absolute;
+
+  z-index:2;
+
+  top:50%;
+  left:13px;
+
+  width:16px;
+  height:16px;
+
+  transform:
+    translateY(-50%);
+
+  fill:none;
+
+  stroke:
+    rgba(156,191,216,0.6);
+
+  stroke-width:1.6;
+
+  pointer-events:none;
+}
+
+
+.visa-input-wrapper input{
+  width:100%;
+  height:46px;
+
+  padding:
+    0
+    13px
+    0
+    40px;
+
+  color:#f4faff;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:10px;
+
+  outline:none;
+
+  background:
+    rgba(255,255,255,0.04);
+
+  font-size:11px;
+}
+
+
+.visa-input-wrapper input::placeholder{
+  color:
+    rgba(183,203,219,0.34);
+}
+
+
+.visa-input-wrapper input:hover{
+  background:
+    rgba(255,255,255,0.055);
+}
+
+
+.visa-input-wrapper input:focus{
+  border-color:
+    rgba(104,190,248,0.62);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(51,153,229,0.1);
+}
+
+
+.visa-input-wrapper input[type="date"]{
+  color-scheme:dark;
+}
+
+
+/* =====================================================
+   COUNTRY AUTOCOMPLETE
+===================================================== */
+
+.country-autocomplete{
+  position:relative;
+}
+
+
+.country-suggestions{
+  position:absolute;
+  z-index:3000;
+
+  top:
+    calc(
+      100% + 8px
+    );
+
+  right:0;
+  left:0;
+
+  max-height:290px;
+
+  overflow-y:auto;
+
+  padding:7px;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,34,55,0.99),
+      rgba(7,22,38,0.99)
+    );
+
+  box-shadow:
+    0 22px 55px
+    rgba(0,0,0,0.48);
+}
+
+
+.country-suggestion{
+  width:100%;
+
+  padding:
+    11px
+    12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  color:#ffffff;
+
+  border-radius:9px;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  text-align:left;
+}
+
+
+.country-suggestion:hover{
+  background:
+    rgba(91,172,231,0.1);
+}
+
+
+.country-suggestion span{
+  color:#f5fbff;
+
+  font-size:11px;
+}
+
+
+.country-suggestion strong{
+  flex:0 0 auto;
+
+  padding:
+    6px
+    8px;
+
+  color:#a5ddff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:7px;
+
+  background:
+    rgba(47,152,232,0.09);
+
+  font-size:9px;
+  font-weight:750;
+}
+
+
+.country-suggestions::-webkit-scrollbar{
+  width:6px;
+}
+
+
+.country-suggestions::-webkit-scrollbar-thumb{
+  border-radius:999px;
+
+  background:
+    rgba(120,198,250,0.25);
+}
+
+
+/* =====================================================
+   CHECK BUTTON
+===================================================== */
+
+.visa-check-button{
+  min-width:145px;
+  height:46px;
+
+  padding:
+    0
+    19px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  color:#ffffff;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+
+  cursor:pointer;
+
+  font-size:11px;
+  font-weight:650;
+}
+
+
+.visa-check-button:hover:not(:disabled){
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+.visa-check-button:disabled{
+  opacity:0.55;
+
+  cursor:not-allowed;
+}
+
+
+.visa-check-button svg{
+  width:16px;
+  height:16px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.8;
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.visa-message{
+  margin-top:16px;
+
+  padding:
+    11px
+    13px;
+
+  color:#ffd0d0;
+
+  border:
+    1px solid
+    rgba(255,112,112,0.17);
+
+  border-radius:9px;
+
+  background:
+    rgba(111,28,39,0.5);
+
+  font-size:10px;
+}
+
+
+/* =====================================================
+   RESULTS CARD
+===================================================== */
+
+.visa-results-card{
+  width:100%;
+
+  margin-top:25px;
+
+  padding:25px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,40,64,0.92),
+      rgba(8,23,40,0.88)
+    );
+
+  box-shadow:
+    0 24px 65px
+    rgba(0,0,0,0.22),
+    inset
+    0
+    1px
+    0
+    rgba(255,255,255,0.045);
+}
+
+
+/* =====================================================
+   RESULT HEADER
+===================================================== */
+
+.visa-result-header{
+  margin-bottom:21px;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+
+.visa-status{
+  padding:
+    7px
+    10px;
+
+  color:#9ff0c9;
+
+  border:
+    1px solid
+    rgba(101,217,162,0.22);
+
+  border-radius:999px;
+
+  background:
+    rgba(101,217,162,0.07);
+
+  font-size:9px;
+  font-weight:650;
+}
+
+
+.visa-status.invalid-document{
+  color:#ffaaaa;
+
+  border-color:
+    rgba(255,115,115,0.2);
+
+  background:
+    rgba(255,100,100,0.06);
+}
+
+
+/* =====================================================
+   RESULTS GRID
+===================================================== */
+
+.visa-results-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0,1fr)
+    );
+
+  gap:11px;
+}
+
+
+.visa-result-item{
+  min-height:85px;
+
+  padding:
+    12px
+    14px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  gap:5px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.07);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,0.022);
+}
+
+
+.visa-result-item:hover{
+  border-color:
+    rgba(120,198,250,0.18);
+
+  background:
+    rgba(255,255,255,0.035);
+}
+
+
+.visa-result-item span{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:
+    rgba(187,205,219,0.42);
+
+  font-size:8px;
+  font-weight:600;
+
+  letter-spacing:0.6px;
+
+  text-transform:uppercase;
+}
+
+
+.visa-result-item strong{
+  color:
+    rgba(243,250,255,0.86);
+
+  font-size:11px;
+
+  line-height:1.5;
+}
+
+
+/* =====================================================
+   EXCEPTION
+===================================================== */
+
+.visa-exception{
+  margin-top:14px;
+
+  padding:14px;
+
+  border:
+    1px solid
+    rgba(247,198,107,0.17);
+
+  border-radius:10px;
+
+  background:
+    rgba(247,198,107,0.045);
+}
+
+
+.visa-exception strong{
+  color:
+    var(--warning);
+
+  font-size:10px;
+}
+
+
+.visa-exception p{
+  margin:
+    5px
+    0
+    0;
+
+  color:
+    rgba(205,214,220,0.52);
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+
+/* =====================================================
+   DISCLAIMER
+===================================================== */
+
+.visa-disclaimer{
+  margin:
+    18px
+    0
+    0;
+
+  padding-top:16px;
+
+  color:
+    rgba(176,199,215,0.42);
+
+  border-top:
+    1px solid
+    rgba(255,255,255,0.065);
+
+  font-size:8px;
+
+  line-height:1.6;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1120px){
+
+  .header,
+  .visa-main-content{
+    width:
+      calc(
+        100% - 48px
+      );
+  }
+
+  .navigation{
+    display:none;
+  }
+
+}
+
+
+@media(max-width:900px){
+
+  .visa-form{
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(200px,1fr)
+      );
+  }
+
+  .visa-check-button{
+    width:100%;
+  }
+
+}
+
+
+@media(max-width:680px){
+
+  .header,
+  .visa-main-content{
+    width:
+      calc(
+        100% - 30px
+      );
+  }
+
+  .guest-label{
+    display:none;
+  }
+
+  .visa-heading h1{
+    font-size:38px;
+  }
+
+  .visa-form{
+    grid-template-columns:1fr;
+  }
+
+  .visa-results-grid{
+    grid-template-columns:1fr;
+  }
+
+  .visa-result-header{
+    flex-direction:column;
+  }
+
+}
+
+
+@media(max-width:480px){
+
+  .header,
+  .visa-main-content{
+    width:
+      calc(
+        100% - 24px
+      );
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .logo svg{
+    width:34px;
+    height:34px;
+  }
+
+  .visa-search-card,
+  .visa-results-card{
+    padding:18px;
+
+    border-radius:14px;
+  }
+
+}
+

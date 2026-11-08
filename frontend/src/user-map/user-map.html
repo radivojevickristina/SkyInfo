@@ -1,0 +1,373 @@
+<div class="dashboard-page">
+
+
+  <main class="map-content">
+
+    <section class="map-heading">
+
+      <div>
+
+        <small>
+          {{'MAP.USER_EYEBROW' | translate}}
+        </small>
+
+        <h1>
+          {{'MAP.TITLE' | translate}}
+        </h1>
+
+        <p>
+          {{'MAP.USER_DESCRIPTION' | translate}}
+        </p>
+
+      </div>
+
+    </section>
+
+    <section class="map-controls-card">
+
+      <div class="map-field">
+
+        <label for="startLocation">
+          {{'MAP.START_FROM' | translate}}
+        </label>
+
+        <select
+          id="startLocation"
+          name="startLocation"
+          [(ngModel)]="startLocationId"
+        >
+
+          <option value="">
+            {{'MAP.SELECT_START' | translate}}
+          </option>
+
+          <option
+            *ngFor="let location of navigationLocations"
+            [value]="location.id"
+          >
+
+            {{location.name}}
+
+            <ng-container *ngIf="location.floorName">
+              - {{location.floorName}}
+            </ng-container>
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <button
+        type="button"
+        class="swap-button"
+        (click)="swapLocations()"
+        [attr.aria-label]="'MAP.SWAP_ARIA' | translate"
+      >
+        ⇄
+      </button>
+
+      <div class="map-field">
+
+        <label for="destinationLocation">
+          {{'MAP.GO_TO' | translate}}
+        </label>
+
+        <select
+          id="destinationLocation"
+          name="destinationLocation"
+          [(ngModel)]="destinationLocationId"
+        >
+
+          <option value="">
+            {{'MAP.SELECT_DESTINATION' | translate}}
+          </option>
+
+          <option
+            *ngFor="let location of navigationLocations"
+            [value]="location.id"
+          >
+
+            {{location.name}}
+
+            <ng-container *ngIf="location.floorName">
+              - {{location.floorName}}
+            </ng-container>
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="map-field floor-field">
+
+        <label for="mapFloor">
+          {{'MAP.AIRPORT_FLOOR' | translate}}
+        </label>
+
+        <select
+          id="mapFloor"
+          name="mapFloor"
+          [(ngModel)]="selectedFloorId"
+          (change)="changeFloor()"
+        >
+
+          <option
+            *ngFor="let floor of floors"
+            [value]="floor.id"
+          >
+            {{
+               getFloorName(floor.name)  ||
+              ('MAP.FLOOR_TEMPLATE' | translate:{floor:floor.elevation})
+            }}
+          </option>
+
+        </select>
+
+      </div>
+
+      <button
+        type="button"
+        class="navigate-button"
+        (click)="showDirections()"
+        [disabled]="isNavigating"
+      >
+        {{
+          isNavigating
+            ? ('MAP.FINDING_ROUTE' | translate)
+            : ('MAP.SHOW_ROUTE' | translate)
+        }}
+      </button>
+
+      <button
+        type="button"
+        class="clear-route-button"
+        (click)="clearDirections()"
+      >
+        {{'MAP.CLEAR_ROUTE' | translate}}
+      </button>
+
+    </section>
+
+    <div class="map-navigation-layout">
+
+      <div class="map-card">
+
+        <div
+          id="mappedin-map"
+        ></div>
+
+        <div
+          class="map-loading"
+          *ngIf="isMapLoading"
+        >
+          {{'MAP.LOADING' | translate}}
+        </div>
+
+      </div>
+
+
+      <section
+        class="demo-navigation"
+        *ngIf="navigationSteps.length>0"
+      >
+
+        <button
+          type="button"
+          class="navigation-start-card"
+          *ngIf="!navigationOpen"
+          (click)="openNavigation()"
+        >
+
+          <span class="navigation-start-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21s7-5.4 7-12a7 7 0 1 0-14 0c0 6.6 7 12 7 12Z"></path>
+              <circle cx="12" cy="9" r="2"></circle>
+            </svg>
+
+          </span>
+
+
+          <span class="navigation-start-content">
+
+            <small>
+              {{'MAP.NAVIGATION' | translate}}
+            </small>
+
+            <strong>
+              {{'MAP.START_NAVIGATION' | translate}}
+            </strong>
+
+            <span>
+              {{
+                'MAP.STEPS_DISTANCE'
+                  | translate:{
+                      steps:navigationSteps.length,
+                      distance:totalDistance
+                    }
+              }}
+            </span>
+
+          </span>
+
+          <span class="navigation-start-arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <div
+          class="step-navigation-card"
+          *ngIf="navigationOpen"
+        >
+
+          <div class="step-navigation-header">
+
+            <div>
+
+              <small>
+                {{'MAP.NAVIGATION' | translate}}
+              </small>
+
+              <strong>
+                {{
+                  'MAP.STEP_OF'
+                    | translate:{
+                        current:currentNavigationStep+1,
+                        total:navigationSteps.length
+                      }
+                }}
+              </strong>
+
+            </div>
+
+            <button
+              type="button"
+              class="close-navigation"
+              (click)="closeNavigation()"
+              [attr.aria-label]="'MAP.CLOSE_NAVIGATION' | translate"
+            >
+              ×
+            </button>
+
+          </div>
+
+
+          <div class="navigation-progress">
+
+            <span
+              *ngFor="let step of navigationSteps; let i=index"
+              [class.completed]="i<currentNavigationStep"
+              [class.active]="i==currentNavigationStep"
+            ></span>
+
+          </div>
+
+
+          <div class="current-navigation-step">
+
+            <span class="navigation-direction-icon">
+              {{getNavigationStepIcon(navigationSteps[currentNavigationStep])}}
+            </span>
+
+            <div>
+
+              <small
+                *ngIf="getNavigationStepDistance(navigationSteps[currentNavigationStep])!=''"
+              >
+                {{getNavigationStepDistance(navigationSteps[currentNavigationStep])}}
+              </small>
+
+              <h2>
+                {{getNavigationInstruction(navigationSteps[currentNavigationStep])}}
+              </h2>
+
+              <p>
+                {{
+                  'MAP.STEP_OF'
+                    | translate:{
+                        current:currentNavigationStep+1,
+                        total:navigationSteps.length
+                      }
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="navigation-step-actions">
+
+            <button
+              type="button"
+              class="previous-step-button"
+              (click)="previousNavigationStep()"
+              [disabled]="currentNavigationStep==0"
+            >
+              ← {{'MAP.PREVIOUS_STEP' | translate}}
+            </button>
+
+            <button
+              type="button"
+              class="next-step-button"
+              *ngIf="currentNavigationStep<navigationSteps.length-1"
+              (click)="nextNavigationStep()"
+            >
+              {{'MAP.NEXT_STEP' | translate}} →
+            </button>
+
+            <button
+              type="button"
+              class="finish-navigation-button"
+              *ngIf="currentNavigationStep==navigationSteps.length-1"
+              (click)="closeNavigation()"
+            >
+              {{'MAP.FINISH_NAVIGATION' | translate}}
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+    <section class="demo-navigation" *ngIf="navigationSteps.length>0">
+      ...
+    </section>
+
+
+
+
+  </main>
+
+  <footer class="dashboard-footer">
+
+    <span>
+      © 2026 {{'COMMON.APP_NAME' | translate}}
+    </span>
+
+    <div>
+
+      <a href="#">
+        {{'COMMON.PRIVACY' | translate}}
+      </a>
+
+      <a href="#">
+        {{'COMMON.TERMS' | translate}}
+      </a>
+
+      <a href="#">
+        {{'COMMON.HELP' | translate}}
+      </a>
+
+    </div>
+
+  </footer>
+
+</div>

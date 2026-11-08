@@ -1,0 +1,33 @@
+export class Flights {
+  _id:string=""
+  externalKey:string=""
+  flightNumber:string=""
+  callsign:string=""
+  status:string="Unknown"
+  airline:string=""
+  airlineIata:string=""
+  airlineIcao:string=""
+  aircraftRegistration:string=""
+  aircraftModel:string=""
+  icao24:string=""
+  departureAirport:string=""
+  departureAirportIata:string=""
+  departureCity:string=""
+  departureAirportName:string=""
+  departureScheduledTime:string=""
+  departureScheduledTimeUtc:string | null=null
+  departureRevisedTime:string | null=null
+  departureTerminal:string=""
+  departureGate:string=""
+  departureCheckInDesk:string=""
+  arrivalAirport:string=""
+  arrivalAirportIata:string=""
+  arrivalCity:string=""
+  arrivalAirportName:string=""
+  arrivalScheduledTime:string | null=null
+  arrivalScheduledTimeUtc:string | null=null
+  arrivalRevisedTime:string | null=null
+  arrivalTerminal:string=""
+  arrivalGate:string=""
+  arrivalBaggageBelt:string=""
+}

@@ -1,0 +1,248 @@
+<main class="notifications-page">
+
+  <section class="notifications-container">
+
+    <div class="page-heading">
+
+      <div>
+        <span class="page-eyebrow">
+          {{'NOTIFICATIONS.PAGE_EYEBROW' | translate}}
+        </span>
+
+        <h1>
+          {{'NOTIFICATIONS.PAGE_TITLE' | translate}}
+        </h1>
+
+        <p>
+          {{'NOTIFICATIONS.PAGE_DESCRIPTION' | translate}}
+        </p>
+      </div>
+
+      <div class="notification-count">
+        <span>{{notifications.length}}</span>
+        {{'NOTIFICATIONS.TOTAL' | translate}}
+      </div>
+
+    </div>
+
+
+    <div class="notifications-list">
+
+      @if(notifications.length==0){
+
+        <div class="empty-notifications">
+
+          <div class="empty-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+              <path d="M10 21h4"></path>
+            </svg>
+
+          </div>
+
+          <h2>
+            {{'NOTIFICATIONS.EMPTY_TITLE' | translate}}
+          </h2>
+
+          <p>
+            {{'NOTIFICATIONS.EMPTY_DESCRIPTION' | translate}}
+          </p>
+
+        </div>
+
+      }
+      @else{
+
+        @for(notification of notifications; track notification._id){
+
+          <article
+            class="notification-card"
+            [class.unread]="!notification.read"
+            [class.read]="notification.read"
+            [class.critical]="notification.severity=='critical'"
+            [class.warning]="notification.severity=='warning'"
+            [class.info]="notification.severity=='info'"
+          >
+
+            <div class="notification-icon">
+
+              @if(notification.type=="flight_cancelled"){
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 11 21 4l-7 17-3-7-8-3Z"></path>
+                  <path d="m14 8 4 4"></path>
+                </svg>
+
+              }
+              @else if(notification.type=="gate_change"){
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 20V4h9v16"></path>
+                  <path d="M13 12h7"></path>
+                  <path d="m17 8 4 4-4 4"></path>
+                </svg>
+
+              }
+              @else if(notification.type=="document_expiration"){
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                  <path d="M9 8h6"></path>
+                  <path d="M9 12h6"></path>
+                  <path d="M12 16v.01"></path>
+                </svg>
+
+              }
+              @else{
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                  <path d="M10 21h4"></path>
+                </svg>
+
+              }
+
+            </div>
+
+
+            <div class="notification-content">
+
+              <div class="notification-top">
+
+                <div class="notification-title-row">
+
+                  @if(!notification.read){
+                    <span class="unread-dot"></span>
+                  }
+
+                  <h2>
+                    {{notification.titleKey | translate:notification.params}}
+                  </h2>
+
+                </div>
+
+                <span
+                  class="severity-badge"
+                  [class.critical-badge]="notification.severity=='critical'"
+                  [class.warning-badge]="notification.severity=='warning'"
+                  [class.info-badge]="notification.severity=='info'"
+                >
+                  @if(notification.severity=="critical"){
+                    {{'NOTIFICATIONS.CRITICAL' | translate}}
+                  }
+                  @else if(notification.severity=="warning"){
+                    {{'NOTIFICATIONS.WARNING' | translate}}
+                  }
+                  @else{
+                    {{'NOTIFICATIONS.INFO' | translate}}
+                  }
+                </span>
+
+              </div>
+
+
+              <p class="notification-message">
+                {{notification.messageKey | translate:notification.params}}
+              </p>
+
+
+              <div class="notification-bottom">
+
+                <div class="notification-date">
+
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 7v5l3 2"></path>
+                  </svg>
+
+                  <span>
+                    {{notification.createdAt | date:'dd.MM.yyyy. HH:mm'}}
+                  </span>
+
+                </div>
+
+
+                @if(!notification.read){
+
+                  <button
+                    type="button"
+                    class="mark-read-button"
+                    (click)="markAsRead(notification)"
+                  >
+                    <span class="mark-read-dot"></span>
+
+                    {{'NOTIFICATIONS.MARK_AS_READ' | translate}}
+                  </button>
+
+              }
+              @else{
+
+                  <span class="read-label">
+                    {{'NOTIFICATIONS.READ' | translate}}
+                  </span>
+
+              }
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+      }
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="footer-content">
+
+    <div class="footer-brand">
+
+      <div class="footer-logo">
+
+        <span class="footer-logo-icon">
+
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M39 8 26 38c-.8 1.9-3.4 2-4.4.2l-5.3-10-10.2-5.3c-1.8-1-1.7-3.6.2-4.4L36.2 5.5C38.1 4.7 39.8 6.1 39 8Z"></path>
+            <path d="m16.3 28.2 11.5-11.5"></path>
+          </svg>
+
+        </span>
+
+        <span>SkyInfo</span>
+
+      </div>
+
+      <p>
+        {{'FOOTER.DESCRIPTION' | translate}}
+      </p>
+
+    </div>
+
+
+    <div class="footer-right">
+
+      <span>
+        © 2026 SkyInfo
+      </span>
+
+      <span class="footer-divider"></span>
+
+      <span>
+        {{'FOOTER.RIGHTS' | translate}}
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>

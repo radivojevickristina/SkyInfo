@@ -1,0 +1,147 @@
+<div class="login-page">
+
+
+    <main class="login-content">
+
+        <section class="login-card">
+
+            <div class="login-card-header">
+
+                <div class="card-label">
+                    ADMINISTRATION
+                </div>
+
+                <h1>
+                    Admin Login
+                </h1>
+
+                <p>
+                    Sign in to access the SkyInfo administration panel.
+                </p>
+
+            </div>
+
+
+            <form (ngSubmit)="login()">
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 21a8 8 0 0 0-16 0"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            placeholder="Enter username"
+                            [(ngModel)]="username"
+                            autocomplete="username"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="password-label">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <button
+                            type="button"
+                            class="forgot-password"
+                            routerLink="/forgot-password"
+                        >
+                            Forgot password?
+                        </button>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <svg viewBox="0 0 24 24">
+                            <rect
+                                x="4"
+                                y="10"
+                                width="16"
+                                height="11"
+                                rx="2"
+                            ></rect>
+
+                            <path
+                                d="M8 10V7a4 4 0 0 1 8 0v3"
+                            ></path>
+                        </svg>
+
+                        <input
+                            id="password"
+                            name="password"
+                            [type]="showPassword ? 'text' : 'password'"
+                            placeholder="Enter password"
+                            [(ngModel)]="password"
+                            autocomplete="current-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            (click)="togglePassword()"
+                        >
+                            {{ showPassword ? 'Hide' : 'Show' }}
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="error-message"
+                    *ngIf="messageKey != ''"
+                >
+
+                    <svg viewBox="0 0 24 24">
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                        ></circle>
+
+                        <path d="M12 8v5"></path>
+                        <path d="M12 17h.01"></path>
+                    </svg>
+
+                    <span>
+                        {{ messageKey }}
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    LOGIN
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>

@@ -1,0 +1,425 @@
+<div class="about-page">
+
+  <main class="about-content">
+
+
+    <section class="about-hero">
+
+      <div class="hero-badge">
+        <span></span>
+        {{'ABOUT_PAGE.EYEBROW' | translate}}
+      </div>
+
+      <h1>
+        {{'ABOUT_PAGE.TITLE_FIRST' | translate}}
+        <span>
+          {{'ABOUT_PAGE.TITLE_SECOND' | translate}}
+        </span>
+      </h1>
+
+      <p>
+        {{'ABOUT_PAGE.DESCRIPTION' | translate}}
+      </p>
+
+      <div class="hero-actions">
+
+        <button
+          type="button"
+          class="primary-button"
+          [routerLink]="flightsRoute"
+        >
+          {{'ABOUT_PAGE.START' | translate}}
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="secondary-button"
+          [routerLink]="mapRoute"
+        >
+          {{'COMMON.AIRPORT_MAP' | translate}}
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- WHAT IS SKYINFO -->
+
+    <section class="about-intro">
+
+      <div class="section-label">
+        {{'ABOUT_PAGE.WHAT_EYEBROW' | translate}}
+      </div>
+
+      <div class="intro-grid">
+
+        <h2>
+          {{'ABOUT_PAGE.WHAT_TITLE' | translate}}
+        </h2>
+
+        <p>
+          {{'ABOUT_PAGE.WHAT_DESCRIPTION' | translate}}
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features-section">
+
+      <div class="section-heading">
+
+        <small>
+          {{'ABOUT_PAGE.FEATURES_EYEBROW' | translate}}
+        </small>
+
+        <h2>
+          {{'ABOUT_PAGE.FEATURES_TITLE' | translate}}
+        </h2>
+
+      </div>
+
+
+      <div class="features-grid">
+
+        <!-- FLIGHTS -->
+
+        <article class="feature-card">
+
+          <span class="feature-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 16l20-8"></path>
+              <path d="m6 14-2-5 2-1 4 4"></path>
+              <path d="m15 11 1-7 2-1 1 6"></path>
+            </svg>
+
+          </span>
+
+          <div>
+
+            <span class="feature-number">
+              01
+            </span>
+
+            <h3>
+              {{'ABOUT_PAGE.FLIGHTS_TITLE' | translate}}
+            </h3>
+
+            <p>
+              {{'ABOUT_PAGE.FLIGHTS_DESCRIPTION' | translate}}
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- MAP -->
+
+        <article class="feature-card">
+
+          <span class="feature-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 18 3 21V6l6-3 6 3 6-3v15l-6 3-6-3Z"></path>
+              <path d="M9 3v15"></path>
+              <path d="M15 6v15"></path>
+            </svg>
+
+          </span>
+
+          <div>
+
+            <span class="feature-number">
+              02
+            </span>
+
+            <h3>
+              {{'ABOUT_PAGE.MAP_TITLE' | translate}}
+            </h3>
+
+            <p>
+              {{'ABOUT_PAGE.MAP_DESCRIPTION' | translate}}
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- VISA -->
+
+        <article class="feature-card">
+
+          <span class="feature-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18"></path>
+              <path d="M12 3a15 15 0 0 1 0 18"></path>
+              <path d="M12 3a15 15 0 0 0 0 18"></path>
+            </svg>
+
+          </span>
+
+          <div>
+
+            <span class="feature-number">
+              03
+            </span>
+
+            <h3>
+              {{'ABOUT_PAGE.VISA_TITLE' | translate}}
+            </h3>
+
+            <p>
+              {{'ABOUT_PAGE.VISA_DESCRIPTION' | translate}}
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- DOCUMENTS -->
+
+        <article class="feature-card">
+
+          <span class="feature-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+              <circle cx="12" cy="10" r="3"></circle>
+              <path d="M8 17h8"></path>
+            </svg>
+
+          </span>
+
+          <div>
+
+            <span class="feature-number">
+              04
+            </span>
+
+            <h3>
+              {{'ABOUT_PAGE.DOCUMENTS_TITLE' | translate}}
+            </h3>
+
+            <p>
+              {{'ABOUT_PAGE.DOCUMENTS_DESCRIPTION' | translate}}
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="how-section">
+
+      <div class="section-heading centered">
+
+        <small>
+          {{'ABOUT_PAGE.HOW_EYEBROW' | translate}}
+        </small>
+
+        <h2>
+          {{'ABOUT_PAGE.HOW_TITLE' | translate}}
+        </h2>
+
+      </div>
+
+
+      <div class="steps-grid">
+
+        <article class="step-card">
+
+          <span class="step-number">
+            01
+          </span>
+
+          <h3>
+            {{'ABOUT_PAGE.STEP_ONE_TITLE' | translate}}
+          </h3>
+
+          <p>
+            {{'ABOUT_PAGE.STEP_ONE_DESCRIPTION' | translate}}
+          </p>
+
+        </article>
+
+
+        <span class="step-connector">
+          →
+        </span>
+
+
+        <article class="step-card">
+
+          <span class="step-number">
+            02
+          </span>
+
+          <h3>
+            {{'ABOUT_PAGE.STEP_TWO_TITLE' | translate}}
+          </h3>
+
+          <p>
+            {{'ABOUT_PAGE.STEP_TWO_DESCRIPTION' | translate}}
+          </p>
+
+        </article>
+
+
+        <span class="step-connector">
+          →
+        </span>
+
+
+        <article class="step-card">
+
+          <span class="step-number">
+            03
+          </span>
+
+          <h3>
+            {{'ABOUT_PAGE.STEP_THREE_TITLE' | translate}}
+          </h3>
+
+          <p>
+            {{'ABOUT_PAGE.STEP_THREE_DESCRIPTION' | translate}}
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT PROJECT -->
+
+    <section class="project-section">
+
+      <div class="project-copy">
+
+        <small>
+          {{'ABOUT_PAGE.PROJECT_EYEBROW' | translate}}
+        </small>
+
+        <h2>
+          {{'ABOUT_PAGE.PROJECT_TITLE' | translate}}
+        </h2>
+
+        <p>
+          {{'ABOUT_PAGE.PROJECT_DESCRIPTION' | translate}}
+        </p>
+
+      </div>
+
+
+      <div class="technology-card">
+
+        <small>
+          {{'ABOUT_PAGE.TECHNOLOGIES' | translate}}
+        </small>
+
+        <div class="technology-list">
+
+          <span>Angular</span>
+
+          <span>Node.js</span>
+
+          <span>MongoDB</span>
+
+          <span>Mappedin</span>
+
+          <span>AeroDataBox</span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FINAL CTA -->
+
+    <section class="about-cta">
+
+      <span class="cta-icon">
+
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M39 8 26 38c-.8 1.9-3.4 2-4.4.2l-5.3-10-10.2-5.3c-1.8-1-1.7-3.6.2-4.4L36.2 5.5C38.1 4.7 39.8 6.1 39 8Z"></path>
+          <path d="m16.3 28.2 11.5-11.5"></path>
+        </svg>
+
+      </span>
+
+      <h2>
+        {{'ABOUT_PAGE.CTA_TITLE' | translate}}
+      </h2>
+
+      <p>
+        {{'ABOUT_PAGE.CTA_DESCRIPTION' | translate}}
+      </p>
+
+      <button
+        type="button"
+        class="primary-button"
+        [routerLink]="flightsRoute"
+      >
+        {{'ABOUT_PAGE.CTA_BUTTON' | translate}}
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="m13 6 6 6-6 6"></path>
+        </svg>
+
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <footer class="about-footer">
+
+    <span>
+      © 2026 {{'COMMON.APP_NAME' | translate}}
+    </span>
+
+    <div>
+
+      <a href="#">
+        {{'COMMON.PRIVACY' | translate}}
+      </a>
+
+      <a href="#">
+        {{'COMMON.TERMS' | translate}}
+      </a>
+
+      <a href="#">
+        {{'COMMON.HELP' | translate}}
+      </a>
+
+    </div>
+
+  </footer>
+
+</div>

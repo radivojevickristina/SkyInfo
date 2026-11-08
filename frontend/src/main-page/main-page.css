@@ -1,0 +1,1394 @@
+:host {
+  --background: #06101d;
+  --background-soft: #0b1d30;
+  --surface: rgba(10, 28, 47, 0.72);
+  --surface-light: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.14);
+  --text: #f7fbff;
+  --text-muted: #aab9c9;
+  --primary: #2d91f2;
+  --primary-light: #72c4ff;
+  --success: #60d394;
+
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  color: var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   GLAVNA STRANICA
+   ========================================================= */
+
+.landing-page {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 76% 23%,
+      rgba(58, 144, 220, 0.2),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #071320 0%,
+      #0a2035 48%,
+      #07111d 100%
+    );
+}
+
+.airport-background {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(18, 44, 78, 0.08) 0%,
+      rgba(17, 48, 90, 0.3) 56%,
+      rgba(6, 28, 54, 0.85) 100%
+    ),
+    url("/assets/images/airport-night.jpg") center / cover no-repeat;
+
+  opacity: 0.48;
+  transform: scale(1.02);
+}
+
+.background-overlay {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 14, 25, 0.98) 0%,
+      rgba(4, 14, 25, 0.8) 43%,
+      rgba(4, 14, 25, 0.25) 75%,
+      rgba(4, 14, 25, 0.48) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(5, 14, 25, 0.25),
+      rgba(5, 14, 25, 0.12) 58%,
+      rgba(5, 14, 25, 0.86)
+    );
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+  position:relative;
+  z-index:20;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  height:84px;
+
+  margin:0 auto;
+
+  display:flex;
+  align-items:center;
+  gap:45px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.08);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  padding:0;
+
+  color:#ffffff;
+
+  font-size:22px;
+  font-weight:700;
+
+  letter-spacing:0;
+}
+
+
+.logo svg{
+  width:36px;
+  height:36px;
+
+  fill:rgba(74,172,255,0.18);
+
+  stroke:var(--primary-light);
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation{
+  flex:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  gap:5px;
+}
+
+
+.navigation a{
+  position:relative;
+
+  height:42px;
+
+  padding:0 13px;
+
+  display:flex;
+  align-items:center;
+
+  color:
+    rgba(211,226,238,0.58);
+
+  font-size:12px;
+  font-weight:400;
+
+  white-space:nowrap;
+
+  transition:
+    color 0.2s ease;
+}
+
+
+.navigation a:hover{
+  color:#ffffff;
+}
+
+
+.navigation a.active{
+  color:#ffffff;
+}
+
+
+.navigation a.active::after{
+  content:"";
+
+  position:absolute;
+
+  right:13px;
+  bottom:-21px;
+  left:13px;
+
+  height:2px;
+
+  border-radius:999px;
+
+  background:
+    var(--primary-light);
+}
+
+
+/* Hover linija samo kada link nije aktivan */
+
+.navigation a:not(.active)::after{
+  content:"";
+
+  position:absolute;
+
+  right:13px;
+  bottom:-21px;
+  left:13px;
+
+  height:2px;
+
+  border-radius:999px;
+
+  background:
+    var(--primary-light);
+
+  opacity:0;
+
+  transform:scaleX(0.5);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.navigation a:not(.active):hover::after{
+  opacity:0.55;
+
+  transform:scaleX(1);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  position: relative;
+  z-index: 5;
+
+  width: min(1380px, calc(100% - 80px));
+  min-height: calc(100vh - 220px);
+  min-height: calc(100svh - 220px);
+
+  margin: 0 auto;
+  padding: 60px 0 130px;
+
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 12;
+
+  width: min(610px, 48%);
+}
+
+.hero-label {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin-bottom: 25px;
+
+  color: #9dccf5;
+
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.label-line {
+  width: 36px;
+  height: 1px;
+
+  background: var(--primary-light);
+}
+
+.hero-content h1 {
+  max-width: 650px;
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(54px, 5.4vw, 83px);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -4px;
+}
+
+.hero-content h1 span {
+  display: block;
+
+  margin-top: 12px;
+
+  color: #77c5ff;
+  font-weight: 450;
+}
+
+.hero-content > p {
+  max-width: 560px;
+
+  margin: 31px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 38px;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 54px;
+  padding: 0 25px;
+
+  border-radius: 11px;
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.primary-button {
+  min-width: 156px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #1f7ed9, #36a5f5);
+
+  box-shadow: 0 15px 35px rgba(24, 122, 213, 0.3);
+
+  font-weight: 650;
+}
+
+.primary-button svg,
+.flight-details-button svg {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.secondary-button {
+  min-width: 190px;
+
+  color: #eaf6ff;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  background: rgba(255, 255, 255, 0.055);
+
+  font-weight: 550;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+.primary-button:hover {
+  box-shadow: 0 18px 40px rgba(29, 139, 229, 0.4);
+}
+
+.secondary-button:hover {
+  border-color: rgba(118, 198, 255, 0.55);
+  background: rgba(83, 169, 235, 0.1);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: translateY(0);
+}
+
+.takeoff-active .primary-button,
+.takeoff-active .secondary-button {
+  pointer-events: none;
+}
+
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 23px;
+
+  color: rgba(207, 222, 235, 0.65);
+
+  font-size: 12px;
+}
+
+.hero-note svg {
+  flex: 0 0 auto;
+
+  width: 17px;
+  height: 17px;
+
+  fill: none;
+  stroke: #79bcea;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   KARTICA LETA
+   ========================================================= */
+
+.flight-card {
+  position: absolute;
+  z-index: 13;
+  top: 72px;
+  right: 0;
+
+  width: 375px;
+  padding: 23px;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(13, 35, 57, 0.91),
+      rgba(8, 23, 40, 0.78)
+    );
+
+  box-shadow:
+    0 26px 80px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(12px);
+}
+
+.flight-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flight-card-header > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--success);
+  box-shadow: 0 0 11px rgba(96, 211, 148, 0.7);
+}
+
+.status-text {
+  color: var(--success);
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.flight-number {
+  color: rgba(224, 237, 248, 0.66);
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.flight-route {
+  display: grid;
+  grid-template-columns: 72px 1fr 72px;
+  align-items: center;
+  gap: 13px;
+
+  margin-top: 27px;
+}
+
+.airport {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.airport strong {
+  color: #ffffff;
+
+  font-size: 27px;
+  letter-spacing: 0.3px;
+}
+
+.airport span {
+  color: rgba(211, 226, 239, 0.55);
+
+  font-size: 11px;
+}
+
+.airport-right {
+  align-items: flex-end;
+
+  text-align: right;
+}
+
+.route-progress {
+  display: flex;
+  align-items: center;
+}
+
+.route-point {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+
+  border: 1px solid #83c9f7;
+  border-radius: 50%;
+
+  background: #0a1e31;
+}
+
+.route-line {
+  position: relative;
+
+  width: 100%;
+  height: 1px;
+
+  background: rgba(123, 197, 245, 0.4);
+}
+
+.route-line svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 22px;
+  height: 22px;
+  padding: 4px;
+
+  border: 1px solid rgba(115, 198, 255, 0.38);
+  border-radius: 50%;
+
+  fill: #92d3ff;
+  background: #102d46;
+
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.flight-information {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  margin-top: 26px;
+  padding: 18px 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.flight-information > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.flight-information > div:not(:first-child) {
+  padding-left: 17px;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.flight-information span {
+  color: rgba(191, 209, 224, 0.52);
+
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.flight-information strong {
+  color: #f4f9fd;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.flight-details-button {
+  width: 100%;
+
+  margin-top: 16px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #9dd5ff;
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   AVION
+   ========================================================= */
+
+.plane-scene {
+  position: absolute;
+  z-index: 8;
+  right: 3%;
+  bottom: 105px;
+
+  width: min(580px, 45vw);
+
+  pointer-events: none;
+}
+
+.airplane {
+  position: relative;
+  z-index: 2;
+
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+
+  transform:
+    translate3d(0, 0, 0)
+    rotate(-1deg)
+    scale(1);
+
+  transform-origin: 55% 50%;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  image-rendering: auto;
+
+  filter: drop-shadow(
+    0 10px 10px rgba(0, 0, 0, 0.26)
+  );
+
+  will-change: transform, opacity;
+}
+
+.plane-shadow {
+  position: absolute;
+  z-index: 1;
+  right: 17%;
+  bottom: -14px;
+
+  width: 62%;
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.34);
+
+  filter: blur(11px);
+
+  transform: translate3d(0, 0, 0) scaleX(1);
+
+  transform-origin: center;
+
+  will-change: transform, opacity;
+}
+/* =========================================================
+   SMOOTH TAKEOFF ANIMACIJA
+========================================================= */
+
+.takeoff-active .airplane{
+  animation:
+    skyinfo-takeoff
+    1.55s
+    linear
+    forwards;
+}
+
+
+.takeoff-active .plane-shadow{
+  animation:
+    skyinfo-shadow
+    1s
+    ease-out
+    forwards;
+}
+
+
+@keyframes skyinfo-takeoff{
+
+  0%{
+    opacity:1;
+
+    transform:
+      translate3d(0, 0, 0)
+      rotate(-1deg)
+      scale(1);
+
+    animation-timing-function:
+      cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+
+  12%{
+    opacity:1;
+
+    transform:
+      translate3d(
+        2vw,
+        -0.5vh,
+        0
+      )
+      rotate(-1.5deg)
+      scale(1);
+
+    animation-timing-function:
+      cubic-bezier(0.4, 0, 0.3, 1);
+  }
+
+
+  25%{
+    opacity:1;
+
+    transform:
+      translate3d(
+        7vw,
+        -4vh,
+        0
+      )
+      rotate(-2.5deg)
+      scale(0.99);
+
+    animation-timing-function:
+      cubic-bezier(0.35, 0, 0.25, 1);
+  }
+
+
+  40%{
+    opacity:1;
+
+    transform:
+      translate3d(
+        15vw,
+        -13vh,
+        0
+      )
+      rotate(-4deg)
+      scale(0.96);
+
+    animation-timing-function:
+      cubic-bezier(0.3, 0, 0.2, 1);
+  }
+
+
+  57%{
+    opacity:1;
+
+    transform:
+      translate3d(
+        27vw,
+        -29vh,
+        0
+      )
+      rotate(-5.5deg)
+      scale(0.9);
+
+    animation-timing-function:
+      cubic-bezier(0.25, 0, 0.2, 1);
+  }
+
+
+  73%{
+    opacity:1;
+
+    transform:
+      translate3d(
+        42vw,
+        -50vh,
+        0
+      )
+      rotate(-6.5deg)
+      scale(0.82);
+
+    animation-timing-function:
+      cubic-bezier(0.2, 0, 0.15, 1);
+  }
+
+
+  87%{
+    opacity:0.95;
+
+    transform:
+      translate3d(
+        58vw,
+        -72vh,
+        0
+      )
+      rotate(-7deg)
+      scale(0.72);
+
+    animation-timing-function:
+      ease-out;
+  }
+
+
+  100%{
+    opacity:0;
+
+    transform:
+      translate3d(
+        74vw,
+        -94vh,
+        0
+      )
+      rotate(-7.5deg)
+      scale(0.62);
+  }
+
+}
+
+
+/* =========================================================
+   SENKA AVIONA
+========================================================= */
+
+@keyframes skyinfo-shadow{
+
+  0%{
+    opacity:0.34;
+
+    transform:
+      translate3d(0, 0, 0)
+      scaleX(1)
+      scaleY(1);
+  }
+
+
+  20%{
+    opacity:0.3;
+
+    transform:
+      translate3d(15px, 0, 0)
+      scaleX(0.92)
+      scaleY(0.9);
+  }
+
+
+  40%{
+    opacity:0.22;
+
+    transform:
+      translate3d(40px, 0, 0)
+      scaleX(0.75)
+      scaleY(0.78);
+  }
+
+
+  60%{
+    opacity:0.14;
+
+    transform:
+      translate3d(70px, 0, 0)
+      scaleX(0.55)
+      scaleY(0.65);
+  }
+
+
+  80%{
+    opacity:0.06;
+
+    transform:
+      translate3d(100px, 0, 0)
+      scaleX(0.32)
+      scaleY(0.48);
+  }
+
+
+  100%{
+    opacity:0;
+
+    transform:
+      translate3d(125px, 0, 0)
+      scaleX(0.15)
+      scaleY(0.3);
+  }
+
+}
+/* =========================================================
+   PRELAZ POSLE KLIKA
+   ========================================================= */
+.page-transition{
+  position:fixed;
+  z-index:100;
+  inset:0;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    rgba(3,11,20,0);
+
+  pointer-events:none;
+
+  animation:
+    transition-background
+    420ms
+    ease
+    1050ms
+    forwards;
+}
+
+.transition-content{
+  margin-top:150px;
+
+  color:
+    rgba(234,245,254,0.82);
+
+  text-align:center;
+
+  opacity:0;
+
+  animation:
+    show-transition-text
+    250ms
+    ease
+    1200ms
+    forwards;
+}
+
+.transition-content p {
+  margin: 14px 0 0;
+
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.loading-line {
+  display: block;
+
+  width: 120px;
+  height: 2px;
+
+  margin: auto;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.loading-line::after {
+  content: "";
+
+  display: block;
+
+  width: 45%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--primary-light);
+
+  animation: loading-line-movement 700ms ease-in-out infinite;
+}
+
+
+.dashboard-footer {
+  min-height: 68px;
+
+  padding:
+    0
+    max(40px, calc((100vw - 1360px) / 2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: rgba(182, 200, 215, 0.4);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.065);
+
+  font-size: 9px;
+}
+
+.dashboard-footer div {
+  display: flex;
+  gap: 22px;
+}
+
+
+.language-selector{
+  height:42px;
+  padding:0 6px;
+  display:flex;
+  align-items:center;
+  gap:3px;
+  border:1px solid rgba(255,255,255,0.11);
+  border-radius:11px;
+  background:rgba(255,255,255,0.035);
+}
+
+.language-selector button{
+  min-width:30px;
+  height:28px;
+  padding:0 7px;
+  color:rgba(211,226,238,0.48);
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  cursor:pointer;
+  font-size:9px;
+  font-weight:700;
+  transition:color 0.18s ease,background 0.18s ease;
+}
+
+.language-selector button:hover{
+  color:#ffffff;
+  background:rgba(255,255,255,0.05);
+}
+
+.language-selector button.active-language{
+  color:#ffffff;
+  background:rgba(47,152,232,0.18);
+}
+
+.language-selector > span{
+  width:1px;
+  height:14px;
+  background:rgba(255,255,255,0.08);
+}
+
+@keyframes transition-background {
+  from {
+    background: rgba(3, 11, 20, 0);
+  }
+
+  to {
+    background: rgba(3, 11, 20, 0.97);
+  }
+}
+
+@keyframes show-transition-text {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loading-line-movement {
+  from {
+    transform: translateX(-130%);
+  }
+
+  to {
+    transform: translateX(260%);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE – MANJI LAPTOP
+   ========================================================= */
+
+@media (max-width: 1180px) {
+  .header,
+  .hero {
+    width: min(100% - 48px, 1100px);
+  }
+
+  .hero-content {
+    width: 52%;
+  }
+
+  .hero-content h1 {
+    letter-spacing: -3px;
+  }
+
+  .flight-card {
+    width: 335px;
+  }
+
+  .plane-scene {
+    right: -5%;
+    width: 52vw;
+  }
+
+  .features {
+    padding-inline: 20px;
+  }
+
+  .feature {
+    padding-inline: 18px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE – TABLET
+   ========================================================= */
+
+@media (max-width: 920px) {
+  .landing-page {
+    min-height: 1000px;
+    overflow-y: auto;
+  }
+
+  .header {
+    width: calc(100% - 40px);
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .hero {
+    width: calc(100% - 40px);
+    min-height: auto;
+
+    display: block;
+
+    padding: 70px 0 390px;
+  }
+
+  .hero-content {
+    width: min(650px, 100%);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(48px, 10vw, 70px);
+  }
+
+  .flight-card {
+    top: auto;
+    right: 0;
+    bottom: 140px;
+
+    width: min(360px, 45%);
+  }
+
+  .plane-scene {
+    right: 24%;
+    bottom: 160px;
+
+    width: 54vw;
+  }
+
+  .features {
+    position: relative;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    min-height: auto;
+  }
+
+  .feature:nth-child(2) {
+    border-right: 0;
+  }
+
+  .feature:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE – TELEFON
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .landing-page {
+    min-height: auto;
+  }
+
+  .airport-background {
+    background-position: 62% center;
+  }
+
+  .header {
+    height: 75px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .logo svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero {
+    padding: 55px 0 545px;
+  }
+
+  .hero-label {
+    font-size: 10px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(43px, 13.5vw, 60px);
+    line-height: 1;
+    letter-spacing: -2.6px;
+  }
+
+  .hero-content > p {
+    margin-top: 24px;
+
+    font-size: 16px;
+  }
+
+  .hero-buttons {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+
+  .flight-card {
+    right: 0;
+    bottom: 110px;
+    left: 0;
+
+    width: 100%;
+    margin: auto;
+  }
+
+  .plane-scene {
+    right: -20px;
+    bottom: 385px;
+
+    width: 92vw;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+
+    padding-inline: 20px;
+  }
+
+  .feature {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .feature:last-child {
+    border-bottom: 0;
+  }
+
+  @keyframes skyinfo-takeoff {
+    0% {
+      opacity: 1;
+
+      transform:
+        translate3d(0, 0, 0)
+        rotate(-1deg)
+        scale(1);
+    }
+
+    18% {
+      opacity: 1;
+
+      transform:
+        translate3d(30px, -9px, 0)
+        rotate(-2deg)
+        scale(0.99);
+    }
+
+    45% {
+      opacity: 1;
+
+      transform:
+        translate3d(110px, -95px, 0)
+        rotate(-4.5deg)
+        scale(0.92);
+    }
+
+    80% {
+      opacity: 1;
+
+      transform:
+        translate3d(64vw, -65vh, 0)
+        rotate(-7deg)
+        scale(0.68);
+    }
+
+    100% {
+      opacity: 0;
+
+      transform:
+        translate3d(88vw, -92vh, 0)
+        rotate(-7deg)
+        scale(0.55);
+    }
+  }
+}
+
+/* =========================================================
+   SMANJENE ANIMACIJE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-button,
+  .secondary-button,
+  .navigation a {
+    transition-duration: 0.01ms;
+  }
+
+  .takeoff-active .airplane {
+    animation-duration: 1.2s;
+  }
+
+  .takeoff-active .plane-shadow {
+    animation-duration: 720ms;
+  }
+}

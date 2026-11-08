@@ -1,0 +1,224 @@
+<div class="dashboard-page">
+
+
+  <main class="dashboard-content">
+
+    <article class="card" *ngIf="!selectedFlight">
+
+      <div class="card-header">
+
+        <div>
+          <small>{{'USER_MAIN.TRACKING' | translate}}</small>
+          <h2>{{'USER_FLIGHTS.ALL_TRACKED' | translate}}</h2>
+        </div>
+
+      </div>
+
+      <div class="tracked-list">
+
+        <p class="search-message" *ngIf="flightsForDisplay.length==0">
+          {{'USER_FLIGHTS.NONE_TRACKED' | translate}}
+        </p>
+
+        <button
+          type="button"
+          class="tracked-flight"
+          *ngFor="let flight of flightsForDisplay"
+          (click)="openFlight(flight)"
+        >
+
+          <span class="airline">
+            {{
+              flight.airlineIata ||
+              flight.airlineIcao ||
+              (flight.flightNumber ? flight.flightNumber.substring(0,2) : "LET")
+            }}
+          </span>
+
+          <span class="tracked-route">
+
+            <strong>
+              {{flight.departureAirportIata || flight.departureAirport || "?"}}
+              →
+              {{flight.arrivalAirportIata || flight.arrivalAirport || "?"}}
+            </strong>
+
+            <small>
+              {{flight.flightNumber || flight.callsign || ('COMMON.UNKNOWN_FLIGHT' | translate)}}
+              ·
+              {{(flight.departureScheduledTimeUtc || flight.departureScheduledTime) | date:'dd.MM.yyyy.':'UTC'}}
+            </small>
+
+          </span>
+
+          <span class="tracked-time">
+
+            <strong>
+              {{
+                (
+                  flight.departureRevisedTime ||
+                  flight.departureScheduledTime
+                ) | date:'HH:mm'
+              }}
+            </strong>
+
+            <small>
+              {{getFlightStatusKey(flight.status) | translate}}
+            </small>
+
+          </span>
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+
+        </button>
+
+      </div>
+
+    </article>
+
+    <article class="card" *ngIf="selectedFlight">
+
+      <div class="card-header">
+
+        <div>
+          <small>{{'USER_FLIGHTS.FLIGHT_DETAILS' | translate}}</small>
+          <h2>{{'USER_FLIGHTS.YOUR_TRIP' | translate}}</h2>
+        </div>
+
+        <span class="status">
+          <i></i>
+          {{getFlightStatusKey(selectedFlight.status) | translate}}
+        </span>
+
+      </div>
+
+      <div class="route">
+
+        <div class="airport">
+
+          <strong>
+            {{selectedFlight.departureAirportIata || selectedFlight.departureAirport || "?"}}
+          </strong>
+
+          <span>
+            {{selectedFlight.departureCity || selectedFlight.departureAirportName || "-"}}
+          </span>
+
+          <small>
+            {{
+              (
+                selectedFlight.departureRevisedTime ||
+                selectedFlight.departureScheduledTime
+              ) | date:'HH:mm'
+            }}
+          </small>
+
+        </div>
+
+        <div class="route-middle">
+
+          <span class="point"></span>
+          <span class="line"></span>
+
+          <span class="plane">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z"></path>
+            </svg>
+          </span>
+
+          <span class="line"></span>
+          <span class="point"></span>
+
+          <small>{{getFlightDuration(selectedFlight)}}</small>
+
+        </div>
+
+        <div class="airport airport-right">
+
+          <strong>
+            {{selectedFlight.arrivalAirportIata || selectedFlight.arrivalAirport || "?"}}
+          </strong>
+
+          <span>
+            {{selectedFlight.arrivalCity || selectedFlight.arrivalAirportName || "-"}}
+          </span>
+
+          <small>
+            {{
+              (
+                selectedFlight.arrivalRevisedTime ||
+                selectedFlight.arrivalScheduledTime
+              ) | date:'HH:mm'
+            }}
+          </small>
+
+        </div>
+
+      </div>
+
+      <div class="flight-data">
+
+        <div>
+          <span>{{'COMMON.FLIGHT_NUMBER' | translate}}</span>
+          <strong>{{selectedFlight.flightNumber || selectedFlight.callsign || "-"}}</strong>
+        </div>
+
+        <div>
+          <span>{{'COMMON.DATE' | translate}}</span>
+          <strong>{{selectedFlight.departureScheduledTime | date:'dd.MM.yyyy.'}}</strong>
+        </div>
+
+        <div>
+          <span>{{'COMMON.TERMINAL' | translate}}</span>
+          <strong>{{selectedFlight.departureTerminal || "-"}}</strong>
+        </div>
+
+        <div>
+          <span>{{'COMMON.GATE' | translate}}</span>
+          <strong>{{selectedFlight.departureGate || "-"}}</strong>
+        </div>
+
+      </div>
+
+      <div class="flight-data">
+
+        <div>
+          <span>{{'COMMON.AIRLINE' | translate}}</span>
+          <strong>{{selectedFlight.airline || "-"}}</strong>
+        </div>
+
+        <div>
+          <span>{{'COMMON.AIRCRAFT' | translate}}</span>
+          <strong>{{selectedFlight.aircraftModel || "-"}}</strong>
+        </div>
+
+        <div>
+          <span>{{'COMMON.REGISTRATION' | translate}}</span>
+          <strong>{{selectedFlight.aircraftRegistration || "-"}}</strong>
+        </div>
+
+      </div>
+
+      <button type="button" class="back-to-flights" (click)="closeFlight()">
+        {{'USER_FLIGHTS.BACK_ALL' | translate}}
+      </button>
+
+    </article>
+
+  </main>
+
+  <footer class="dashboard-footer">
+
+    <span>© 2026 {{'COMMON.APP_NAME' | translate}}</span>
+
+    <div>
+      <a href="#">{{'COMMON.PRIVACY' | translate}}</a>
+      <a href="#">{{'COMMON.TERMS' | translate}}</a>
+      <a href="#">{{'COMMON.HELP' | translate}}</a>
+    </div>
+
+  </footer>
+
+</div>

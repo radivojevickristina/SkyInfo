@@ -1,0 +1,69 @@
+<div class="dashboard-page">
+
+
+
+
+  <main class="map-content">
+
+    <section class="map-heading">
+
+      <div>
+
+        <small>{{'MAP.GUEST_EYEBROW' | translate}}</small>
+
+        <h1>{{'MAP.TITLE' | translate}}</h1>
+
+      </div>
+
+    </section>
+
+
+    <section class="floor-controls">
+
+      <div class="floor-field">
+
+        <label for="mapFloor">{{'MAP.AIRPORT_FLOOR' | translate}}</label>
+
+        <select id="mapFloor" name="mapFloor" [(ngModel)]="selectedFloorId" (change)="changeFloor()">
+
+          <option *ngFor="let floor of floors" [value]="floor.id">
+            {{getFloorName(floor.name) || ('MAP.FLOOR_TEMPLATE' | translate:{floor:floor.elevation})}}
+          </option>
+
+        </select>
+
+      </div>
+
+    </section>
+
+
+    <section class="map-card">
+
+      <div class="map-loading" *ngIf="isMapLoading">
+        {{'MAP.LOADING' | translate}}
+      </div>
+
+      <div class="map-loading" *ngIf="!isMapLoading && mapMessageKey!=''">
+        {{mapMessageKey | translate}}
+      </div>
+
+      <div id="mappedin-map"></div>
+
+    </section>
+
+  </main>
+
+
+  <footer class="dashboard-footer">
+
+    <span>© 2026 SkyInfo</span>
+
+    <div>
+      <a href="#">{{'COMMON.PRIVACY' | translate}}</a>
+      <a href="#">{{'COMMON.TERMS' | translate}}</a>
+      <a href="#">{{'COMMON.HELP' | translate}}</a>
+    </div>
+
+  </footer>
+
+</div>

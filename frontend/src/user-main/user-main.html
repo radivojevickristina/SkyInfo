@@ -1,0 +1,701 @@
+<div class="dashboard-page">
+  
+  <main class="dashboard-content">
+
+    <section class="welcome-section">
+
+      <div>
+
+        <div class="intro-label">
+          <span></span>
+          <small>{{'USER_MAIN.ACCOUNT_LABEL' | translate}}</small>
+        </div>
+
+        <h1>
+          {{'USER_MAIN.WELCOME' | translate}}
+          <span>{{user.firstName}}.</span>
+        </h1>
+
+        <p>{{'USER_MAIN.DESCRIPTION' | translate}}</p>
+
+      </div>
+
+      <div class="today-card">
+        <small>{{'COMMON.TODAY' | translate}}</small>
+        <strong>{{today | date:'dd.MM.yyyy. HH:mm'}}</strong>
+        <span>{{today | date:'HH:mm'}}</span>
+      </div>
+
+    </section>
+
+    <section class="flight-search-card">
+
+      <div class="search-title">
+
+        <span class="search-title-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z"></path>
+          </svg>
+        </span>
+
+        <div>
+          <small>{{'FLIGHT_SEARCH.QUICK_SEARCH' | translate}}</small>
+          <h2>{{'FLIGHT_SEARCH.FIND_FLIGHT' | translate}}</h2>
+        </div>
+
+      </div>
+
+      <div class="search-form">
+
+        <div class="field">
+
+          <label for="flightNumber">{{'COMMON.FLIGHT_NUMBER' | translate}}</label>
+
+          <div class="input-wrapper">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-4-4"></path>
+            </svg>
+
+            <input
+              id="flightNumber"
+              name="flightNumber"
+              type="text"
+              [placeholder]="'FLIGHT_SEARCH.FLIGHT_NUMBER_PLACEHOLDER' | translate"
+              [(ngModel)]="flightNumber"
+            >
+
+          </div>
+
+        </div>
+
+        <div class="field">
+
+          <label for="flightDate">{{'COMMON.FLIGHT_DATE' | translate}}</label>
+
+          <div class="input-wrapper">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+              <path d="M8 3v4"></path>
+              <path d="M16 3v4"></path>
+              <path d="M3 10h18"></path>
+            </svg>
+
+            <input
+              id="flightDate"
+              name="flightDate"
+              type="date"
+              [(ngModel)]="flightDate"
+            >
+
+          </div>
+
+        </div>
+
+        <div class="field">
+
+          <label for="departureAirport">{{'FLIGHT_SEARCH.DEPARTURE_AIRPORT' | translate}}</label>
+
+          <div class="airport-autocomplete">
+
+            <div class="input-wrapper">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 18h16"></path>
+                <path d="M6 14 18 6"></path>
+                <path d="m9 7 3 3"></path>
+              </svg>
+
+              <input
+                id="departureAirport"
+                name="departureAirport"
+                type="text"
+                [placeholder]="'FLIGHT_SEARCH.DEPARTURE_PLACEHOLDER' | translate"
+                autocomplete="off"
+                [(ngModel)]="departureAirportText"
+                (input)="onDepartureAirportInput()"
+              >
+
+            </div>
+
+            <div class="airport-suggestions" *ngIf="departureAirportSuggestions.length>0">
+
+              <button
+                type="button"
+                class="airport-suggestion"
+                *ngFor="let airport of departureAirportSuggestions"
+                (click)="selectDepartureAirport(airport)"
+              >
+
+                <span>
+                  <strong>
+                    {{airport.city}}
+                    <ng-container *ngIf="airport.iata">({{airport.iata}})</ng-container>
+                  </strong>
+                  <small>{{airport.name}}</small>
+                </span>
+
+                <span class="airport-code">{{airport.icao}}</span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="field">
+
+          <label for="arrivalAirport">{{'FLIGHT_SEARCH.ARRIVAL_AIRPORT' | translate}}</label>
+
+          <div class="airport-autocomplete">
+
+            <div class="input-wrapper">
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 18h16"></path>
+                <path d="M6 6 18 14"></path>
+                <path d="m9 13 3-3"></path>
+              </svg>
+
+              <input
+                id="arrivalAirport"
+                name="arrivalAirport"
+                type="text"
+                [placeholder]="'FLIGHT_SEARCH.ARRIVAL_PLACEHOLDER' | translate"
+                autocomplete="off"
+                [(ngModel)]="arrivalAirportText"
+                (input)="onArrivalAirportInput()"
+              >
+
+            </div>
+
+            <div class="airport-suggestions" *ngIf="arrivalAirportSuggestions.length>0">
+
+              <button
+                type="button"
+                class="airport-suggestion"
+                *ngFor="let airport of arrivalAirportSuggestions"
+                (click)="selectArrivalAirport(airport)"
+              >
+
+                <span>
+                  <strong>
+                    {{airport.city}}
+                    <ng-container *ngIf="airport.iata">({{airport.iata}})</ng-container>
+                  </strong>
+                  <small>{{airport.name}}</small>
+                </span>
+
+                <span class="airport-code">{{airport.icao}}</span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <button type="button" class="search-button" (click)="searchFlights()" [disabled]="isLoading">
+
+          {{
+            isLoading
+              ? ('FLIGHT_SEARCH.SEARCHING' | translate)
+              : ('FLIGHT_SEARCH.SEARCH' | translate)
+          }}
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+
+        </button>
+
+
+        <div class="boarding-pass-search">
+
+          <span class="boarding-pass-divider">
+            {{'COMMON.OR' | translate}}
+          </span>
+
+          <button
+            type="button"
+            class="boarding-pass-button"
+            (click)="openBoardingPassUpload(boardingPassInput)"
+            [disabled]="isBoardingPassLoading"
+          >
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="4" width="6" height="6" rx="1"></rect>
+              <rect x="14" y="4" width="6" height="6" rx="1"></rect>
+              <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+              <path d="M14 14h2v2h-2z"></path>
+              <path d="M18 14h2v2h-2z"></path>
+              <path d="M14 18h2v2h-2z"></path>
+              <path d="M18 18h2v2h-2z"></path>
+            </svg>
+
+            {{
+              isBoardingPassLoading
+                ? ('FLIGHT_SEARCH.SCANNING_BOARDING_PASS' | translate)
+                : ('FLIGHT_SEARCH.SCAN_BOARDING_PASS' | translate)
+            }}
+
+          </button>
+
+          <input
+            #boardingPassInput
+            type="file"
+            accept="image/*"
+            class="boarding-pass-input"
+            (change)="scanBoardingPass($event)"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="card search-results-card" *ngIf="messageKey!='' || searchResults.length>0">
+
+      <div class="card-header">
+
+        <div>
+          <small>{{'FLIGHT_SEARCH.RESULTS' | translate}}</small>
+          
+          <h2>{{'FLIGHT_SEARCH.FOUND_FLIGHTS' | translate}}</h2>
+        </div>
+
+        <span *ngIf="searchResults.length>0">
+          {{'FLIGHT_SEARCH.RESULT_COUNT' | translate:{count:searchResults.length} }}
+        </span>
+
+      </div>
+
+      <p class="search-message" *ngIf="messageKey!=''">
+        {{messageKey | translate}}
+      </p>
+
+      <p></p>
+
+      <div class="tracked-list" *ngIf="searchResults.length>0">
+
+        <article class="tracked-flight flight-search-result" *ngFor="let flight of searchResults">
+
+          <span class="airline">
+            {{
+              flight.airlineIata ||
+              flight.airlineIcao ||
+              (flight.flightNumber ? flight.flightNumber.substring(0,2) : "FLT")
+            }}
+          </span>
+
+          <span class="tracked-route">
+
+            <strong>
+              {{flight.departureCity || selectedDepartureAirport?.city || ('COMMON.UNKNOWN_CITY' | translate)}}
+              ({{flight.departureAirportIata || selectedDepartureAirport?.iata || flight.departureAirport || selectedDepartureAirport?.icao || "?"}})
+              →
+              {{flight.arrivalCity || selectedArrivalAirport?.city || ('COMMON.UNKNOWN_CITY' | translate)}}
+              ({{flight.arrivalAirportIata || selectedArrivalAirport?.iata || flight.arrivalAirport || selectedArrivalAirport?.icao || "?"}})
+            </strong>
+
+            <small class="flight-company">
+
+              <b>
+                {{flight.flightNumber || flight.callsign || ('COMMON.UNKNOWN_FLIGHT_NUMBER' | translate)}}
+              </b>
+
+              <ng-container *ngIf="flight.airline">
+                · {{flight.airline}}
+              </ng-container>
+
+            </small>
+
+            <div class="flight-extra-data">
+
+              <span *ngIf="flight.departureTerminal">
+                {{'FLIGHT_SEARCH.DEPARTURE_TERMINAL' | translate}}:
+                <strong>{{flight.departureTerminal}}</strong>
+              </span>
+
+              <span *ngIf="flight.departureGate">
+                {{'COMMON.GATE' | translate}}:
+                <strong>{{flight.departureGate}}</strong>
+              </span>
+
+              <span *ngIf="flight.arrivalTerminal">
+                {{'FLIGHT_SEARCH.ARRIVAL_TERMINAL' | translate}}:
+                <strong>{{flight.arrivalTerminal}}</strong>
+              </span>
+
+              <span *ngIf="flight.aircraftModel">
+                {{'COMMON.AIRCRAFT' | translate}}:
+                <strong>{{flight.aircraftModel}}</strong>
+              </span>
+
+            </div>
+
+          </span>
+
+          <span class="tracked-time">
+
+            <strong>
+              {{'COMMON.DEPARTURE' | translate}}:
+              {{
+                (
+                  flight.departureRevisedTime ||
+                  flight.departureScheduledTime
+                ) | date:'dd.MM.yyyy. HH:mm'
+              }}
+            </strong>
+
+            <small>
+              {{'COMMON.ARRIVAL' | translate}}:
+              {{
+                (
+                  flight.arrivalRevisedTime ||
+                  flight.arrivalScheduledTime
+                ) | date:'dd.MM.yyyy. HH:mm'
+              }}
+            </small>
+
+            <small class="flight-result-status">
+              {{getFlightStatusKey(flight.status) | translate}}
+            </small>
+
+          </span>
+
+          <button
+            type="button"
+            class="track-flight-button"
+            [class.tracked]="isFlightTracked(flight)"
+            (click)="trackFlight(flight)"
+          >
+            {{
+              (isFlightTracked(flight)
+                ? 'FLIGHT_SEARCH.TRACKING_ENABLED'
+                : 'FLIGHT_SEARCH.TRACK_THIS_FLIGHT') | translate
+            }}
+          </button>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <section class="dashboard-grid">
+
+      <div class="main-column">
+
+        <article class="card next-flight-card">
+
+          <ng-container *ngIf="nextFlight; else noNextFlight">
+
+            <div class="card-header">
+
+              <div>
+                <small>{{'USER_MAIN.NEXT_FLIGHT' | translate}}</small>
+                <h2>{{'USER_MAIN.NEXT_TRIP' | translate}}</h2>
+              </div>
+
+              <span class="status">
+                <i></i>
+                {{getFlightStatusKey(nextFlight.status) | translate}}
+              </span>
+
+            </div>
+
+            <div class="route">
+
+              <div class="airport">
+
+                <strong>
+                  {{nextFlight.departureAirportIata || nextFlight.departureAirport}}
+                </strong>
+
+                <span>{{nextFlight.departureCity}}</span>
+
+                <small>{{nextFlight.departureScheduledTime | date:'HH:mm'}}</small>
+
+              </div>
+
+              <div class="route-middle">
+
+                <span class="point"></span>
+                <span class="line"></span>
+
+                <span class="plane">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z"></path>
+                  </svg>
+                </span>
+
+                <span class="line"></span>
+                <span class="point"></span>
+
+                <small>{{getFlightDuration(nextFlight)}}</small>
+
+              </div>
+
+              <div class="airport airport-right">
+
+                <strong>
+                  {{nextFlight.arrivalAirportIata || nextFlight.arrivalAirport}}
+                </strong>
+
+                <span>{{nextFlight.arrivalCity}}</span>
+
+                <small>{{nextFlight.arrivalScheduledTime | date:'HH:mm'}}</small>
+
+              </div>
+
+            </div>
+
+            <div class="flight-data">
+
+              <div>
+                <span>{{'COMMON.FLIGHT_NUMBER' | translate}}</span>
+                <strong>{{nextFlight.flightNumber || nextFlight.callsign}}</strong>
+              </div>
+
+              <div>
+                <span>{{'COMMON.DATE' | translate}}</span>
+                <strong>{{nextFlight.departureScheduledTime | date:'dd.MM.yyyy.'}}</strong>
+              </div>
+
+              <div>
+                <span>{{'COMMON.TERMINAL' | translate}}</span>
+                <strong>{{nextFlight.departureTerminal || '-'}}</strong>
+              </div>
+
+              <div>
+                <span>{{'COMMON.GATE' | translate}}</span>
+                <strong>{{nextFlight.departureGate || '-'}}</strong>
+              </div>
+
+            </div>
+
+          </ng-container>
+
+          <ng-template #noNextFlight>
+
+            <div class="no-next-flight">
+
+              <small>{{'USER_MAIN.NEXT_FLIGHT' | translate}}</small>
+
+              <h2>{{'USER_MAIN.NO_NEXT_TITLE' | translate}}</h2>
+
+              <p>{{'USER_MAIN.NO_NEXT_DESC' | translate}}</p>
+
+            </div>
+
+          </ng-template>
+
+          <div class="card-actions">
+            <button type="button" class="secondary-action" routerLink="/user/map">
+              {{'COMMON.AIRPORT_MAP' | translate}}
+            </button>
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="card-header">
+
+            <div>
+              <small>{{'USER_MAIN.TRACKING' | translate}}</small>
+              <h2>{{'USER_MAIN.TRACKED_FLIGHTS' | translate}}</h2>
+            </div>
+
+            <button type="button" class="text-button" routerLink="/user/flights">
+              {{'COMMON.SHOW_ALL' | translate}}
+            </button>
+
+          </div>
+
+          <div class="tracked-list">
+
+            <p class="search-message" *ngIf="flightsForDisplay.length==0">
+              {{'USER_FLIGHTS.NONE_TRACKED' | translate}}
+            </p>
+
+            <button
+              type="button"
+              class="tracked-flight"
+              *ngFor="let flight of flightsForDisplay | slice:0:3"
+              (click)="openTrackedFlight(flight)"
+            >
+
+              <span class="airline">
+                {{
+                  flight.airlineIata ||
+                  flight.airlineIcao ||
+                  (flight.flightNumber ? flight.flightNumber.substring(0,2) : "FLT")
+                }}
+              </span>
+
+              <span class="tracked-route">
+
+                <strong>
+                  {{flight.departureAirportIata || flight.departureAirport || "?"}}
+                  →
+                  {{flight.arrivalAirportIata || flight.arrivalAirport || "?"}}
+                </strong>
+
+                <small>
+                  {{flight.flightNumber || flight.callsign || ('COMMON.UNKNOWN_FLIGHT' | translate)}}
+                  ·
+                  {{
+                    (
+                      flight.departureScheduledTimeUtc ||
+                      flight.departureScheduledTime
+                    ) | date:'dd.MM.yyyy.':'UTC'
+                  }}
+                </small>
+
+              </span>
+
+              <span class="tracked-time">
+
+                <strong>
+                  {{
+                    (
+                      flight.departureRevisedTime ||
+                      flight.departureScheduledTime
+                    ) | date:'HH:mm'
+                  }}
+                </strong>
+
+                <small>{{getFlightStatusKey(flight.status) | translate}}</small>
+
+              </span>
+
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <aside class="side-column">
+
+        <article class="card">
+
+          <div class="card-header">
+            <div>
+              <small>{{'USER_MAIN.ACCOUNT_OVERVIEW' | translate}}</small>
+              <h2>{{'USER_MAIN.QUICK_OVERVIEW' | translate}}</h2>
+            </div>
+          </div>
+
+          <div class="stats">
+
+            <button type="button" routerLink="/user/flights">
+              <span>{{user.trackedFlights.length}}</span>
+              <small>{{'USER_MAIN.TRACKED_FLIGHTS_STAT' | translate}}</small>
+            </button>
+
+            <button type="button" routerLink="/user/documents">
+              <span>{{user.secondaryTravelDocuments.length+1}}</span>
+              <small>{{'USER_MAIN.DOCUMENTS_STAT' | translate}}</small>
+            </button>
+
+            <button type="button" routerLink="/user/notification">
+              <span>{{allNotifications.length}}</span>
+              <small>{{'USER_MAIN.NOTIFICATIONS_STAT' | translate}}</small>
+            </button>
+
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="card-header">
+
+            <div>
+              <small>{{'COMMON.TRAVEL_DOCUMENT' | translate}}</small>
+              <h2>{{'COMMON.PRIMARY_DOCUMENT' | translate}}</h2>
+            </div>
+
+            <button type="button" class="text-button" routerLink="/user/documents">
+              {{'COMMON.MANAGE' | translate}}
+            </button>
+
+          </div>
+
+          <div class="document-preview">
+
+            <span class="document-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                <circle cx="12" cy="11" r="3"></circle>
+                <path d="M8 17h8"></path>
+              </svg>
+            </span>
+
+            <div>
+              <strong>{{getDocumentTypeKey(primaryDocument.documentType) | translate}}</strong>
+              <span>{{primaryDocument.documentNumber}}</span>
+            </div>
+
+            <small>
+              {{
+                (isDocumentValid(primaryDocument.expirationDate)
+                  ? 'COMMON.VALID'
+                  : 'COMMON.EXPIRED') | translate
+              }}
+            </small>
+
+          </div>
+
+          <div class="document-data">
+
+            <div>
+              <span>{{'COMMON.NATIONALITY' | translate}}</span>
+              <strong>{{primaryDocument.nationality}}</strong>
+            </div>
+
+            <div>
+              <span>{{'COMMON.VALID_UNTIL' | translate}}</span>
+              <strong>{{primaryDocument.expirationDate | date:'dd.MM.yyyy.':'UTC'}}</strong>
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+      </aside>
+
+    </section>
+
+  </main>
+
+  <footer class="dashboard-footer">
+
+    <span>© 2026 {{'COMMON.APP_NAME' | translate}}</span>
+
+    <div>
+      <a href="#">{{'COMMON.PRIVACY' | translate}}</a>
+      <a href="#">{{'COMMON.TERMS' | translate}}</a>
+      <a href="#">{{'COMMON.HELP' | translate}}</a>
+    </div>
+
+  </footer>
+
+</div>

@@ -1,0 +1,1977 @@
+:host{
+  --background:#06101d;
+  --surface:rgba(10,29,48,0.9);
+  --border:rgba(255,255,255,0.11);
+  --text:#f5f9fc;
+  --muted:#9cabb9;
+  --primary:#2f98e8;
+  --primary-light:#78c6fa;
+  --success:#65d9a2;
+  --warning:#f7c66b;
+
+  display:block;
+  min-height:100vh;
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+
+button,
+input{
+  font:inherit;
+}
+
+
+button{
+  border:0;
+}
+
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.dashboard-page{
+  position:relative;
+  isolation:isolate;
+
+  min-height:100vh;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at 80% 12%,
+      rgba(46,139,210,0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 85%,
+      rgba(30,95,150,0.14),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #06101d 0%,
+      #0a2034 52%,
+      #07121f 100%
+    );
+}
+
+
+.dashboard-page::before{
+  content:"";
+
+  position:absolute;
+  z-index:-3;
+  inset:0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.022) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.022) 1px,
+      transparent 1px
+    );
+
+  background-size:55px 55px;
+
+  opacity:0.4;
+}
+
+
+/* =====================================================
+   BACKGROUND GLOW
+===================================================== */
+
+.background-glow{
+  position:absolute;
+  z-index:-2;
+
+  border-radius:50%;
+
+  filter:blur(120px);
+
+  pointer-events:none;
+}
+
+
+.glow-one{
+  top:-210px;
+  right:-120px;
+
+  width:560px;
+  height:560px;
+
+  background:
+    rgba(52,153,226,0.17);
+}
+
+
+.glow-two{
+  bottom:-250px;
+  left:-140px;
+
+  width:500px;
+  height:500px;
+
+  background:
+    rgba(44,106,165,0.15);
+}
+
+
+/* =====================================================
+   HEADER - ISTI KAO USER MAIN
+===================================================== */
+
+.dashboard-header{
+  position:relative;
+  z-index:20;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  height:84px;
+
+  margin:0 auto;
+
+  display:flex;
+  align-items:center;
+  gap:45px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.08);
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  padding:0;
+
+  color:#ffffff;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  font-size:22px;
+  font-weight:700;
+}
+
+
+.logo-icon{
+  width:36px;
+  height:36px;
+}
+
+
+.logo svg{
+  width:100%;
+  height:100%;
+
+  fill:
+    rgba(74,172,255,0.18);
+
+  stroke:
+    var(--primary-light);
+
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.dashboard-navigation{
+  flex:1;
+
+  display:flex;
+  align-items:center;
+
+  gap:5px;
+}
+
+
+/*
+  KOD USER VISA SU <a>,
+  PA SAM IZGLED USER MAIN BUTTONA
+  PREBACIO NA LINKOVE.
+*/
+
+.dashboard-navigation a{
+  position:relative;
+
+  height:42px;
+
+  padding:0 13px;
+
+  display:flex;
+  align-items:center;
+
+  color:
+    rgba(211,226,238,0.58);
+
+  background:transparent;
+
+  font-size:12px;
+  font-weight:400;
+
+  cursor:pointer;
+}
+
+
+.dashboard-navigation a:hover,
+.dashboard-navigation a.active{
+  color:#ffffff;
+}
+
+
+.dashboard-navigation a.active::after{
+  content:"";
+
+  position:absolute;
+
+  right:13px;
+  bottom:-21px;
+  left:13px;
+
+  height:2px;
+
+  border-radius:999px;
+
+  background:
+    var(--primary-light);
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.header-actions{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.notification-button{
+  position:relative;
+
+  width:42px;
+  height:42px;
+
+  display:grid;
+  place-items:center;
+
+  color:
+    rgba(221,235,245,0.72);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:11px;
+
+  background:
+    rgba(255,255,255,0.035);
+
+  cursor:pointer;
+}
+
+
+.notification-button svg{
+  width:19px;
+  height:19px;
+
+  fill:none;
+
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+.notification-button span{
+  position:absolute;
+
+  top:8px;
+  right:8px;
+
+  width:7px;
+  height:7px;
+
+  border:
+    2px solid
+    #0a1e31;
+
+  border-radius:50%;
+
+  background:#ff8181;
+}
+
+
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
+
+.profile-button{
+  min-width:180px;
+  height:50px;
+
+  padding:
+    6px
+    10px
+    6px
+    7px;
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+
+  color:#ffffff;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:13px;
+
+  background:
+    rgba(255,255,255,0.035);
+
+  cursor:pointer;
+
+  text-align:left;
+}
+
+
+.profile-avatar{
+  width:36px;
+  height:36px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  color:#b9e5ff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.28);
+
+  border-radius:10px;
+
+  background:
+    rgba(47,152,232,0.12);
+
+  font-size:11px;
+  font-weight:750;
+}
+
+
+.profile-copy{
+  min-width:0;
+
+  flex:1;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:2px;
+}
+
+
+.profile-copy strong,
+.profile-copy small{
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}
+
+
+.profile-copy strong{
+  font-size:11px;
+}
+
+
+.profile-copy small{
+  color:
+    rgba(194,211,224,0.48);
+
+  font-size:9px;
+}
+
+
+.profile-button > svg{
+  width:15px;
+  height:15px;
+
+  fill:none;
+
+  stroke:
+    rgba(190,210,225,0.6);
+
+  stroke-width:1.8;
+}
+
+
+/* =====================================================
+   PROFILE MENU
+===================================================== */
+
+.profile-menu{
+  position:absolute;
+  z-index:3000;
+
+  top:60px;
+  right:0;
+
+  width:210px;
+
+  padding:8px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:13px;
+
+  background:
+    rgba(8,25,42,0.98);
+
+  box-shadow:
+    0 22px 50px
+    rgba(0,0,0,0.42);
+}
+
+
+.profile-menu button{
+  width:100%;
+  height:39px;
+
+  padding:0 11px;
+
+  color:
+    rgba(226,238,247,0.75);
+
+  border-radius:8px;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  text-align:left;
+
+  font-size:11px;
+}
+
+
+.profile-menu button:hover{
+  color:#ffffff;
+
+  background:
+    rgba(255,255,255,0.055);
+}
+
+
+.profile-menu > span{
+  display:block;
+
+  height:1px;
+
+  margin:6px 4px;
+
+  background:
+    rgba(255,255,255,0.08);
+}
+
+
+.profile-menu .logout-button{
+  color:#ffaaaa;
+}
+
+
+/* =====================================================
+   CONTENT - ISTA ŠIRINA KAO USER MAIN
+===================================================== */
+
+.dashboard-content{
+  position:relative;
+  z-index:10;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  margin:0 auto;
+
+  padding:54px 0 85px;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome-section{
+  margin-bottom:31px;
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:30px;
+}
+
+
+.welcome-section > div:first-child{
+  max-width:720px;
+}
+
+
+.intro-label{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  margin-bottom:17px;
+
+  color:#9dccf5;
+
+  font-weight:700;
+  letter-spacing:1.6px;
+
+  text-transform:uppercase;
+}
+
+
+.intro-label span{
+  width:34px;
+  height:1px;
+
+  background:
+    var(--primary-light);
+}
+
+
+.intro-label small{
+  font-size:10px;
+}
+
+
+.welcome-section h1{
+  margin:0;
+
+  color:#ffffff;
+
+  font-size:
+    clamp(
+      39px,
+      4vw,
+      58px
+    );
+
+  font-weight:650;
+
+  letter-spacing:-2.5px;
+
+  line-height:1;
+}
+
+
+.welcome-section h1 span{
+  color:
+    var(--primary-light);
+
+  font-weight:450;
+}
+
+
+.welcome-section p{
+  max-width:650px;
+
+  margin:
+    19px
+    0
+    0;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.65;
+}
+
+
+/* =====================================================
+   DOCUMENT STATUS CARD
+===================================================== */
+
+.document-status-card{
+  min-width:300px;
+
+  padding:15px;
+
+  display:grid;
+
+  grid-template-columns:
+    40px
+    minmax(0,1fr)
+    auto;
+
+  align-items:center;
+
+  gap:12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:14px;
+
+  background:
+    rgba(255,255,255,0.035);
+}
+
+
+.document-status-icon{
+  width:40px;
+  height:40px;
+
+  display:grid;
+  place-items:center;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:10px;
+
+  background:
+    rgba(47,152,232,0.08);
+}
+
+
+.document-status-icon svg{
+  width:19px;
+  height:19px;
+
+  fill:none;
+
+  stroke:#9edcff;
+
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+.document-status-card > div{
+  display:flex;
+  flex-direction:column;
+
+  gap:3px;
+}
+
+
+.document-status-card small{
+  color:
+    var(--primary-light);
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+}
+
+
+.document-status-card strong{
+  color:#ffffff;
+
+  font-size:12px;
+}
+
+
+.document-status-card div span{
+  color:
+    rgba(194,211,224,0.48);
+
+  font-size:10px;
+}
+
+
+.document-status-card i{
+  padding:6px 8px;
+
+  color:#94e7be;
+
+  border:
+    1px solid
+    rgba(101,217,162,0.19);
+
+  border-radius:999px;
+
+  background:
+    rgba(101,217,162,0.06);
+
+  font-size:8px;
+  font-style:normal;
+  font-weight:700;
+}
+
+
+.document-status-card i.document-expired{
+  color:#ffaaaa;
+
+  border-color:
+    rgba(255,115,115,0.2);
+
+  background:
+    rgba(255,100,100,0.06);
+}
+
+
+/* =====================================================
+   VISA SEARCH CARD
+===================================================== */
+
+.visa-search-card{
+  position:relative;
+
+  margin-bottom:25px;
+
+  padding:24px;
+
+  display:flex;
+  align-items:center;
+
+  gap:28px;
+
+  overflow:visible;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(44,131,198,0.11),
+      rgba(255,255,255,0.028)
+    );
+}
+
+
+/* =====================================================
+   SEARCH TITLE
+===================================================== */
+
+.search-title{
+  min-width:235px;
+
+  display:flex;
+  align-items:center;
+
+  gap:13px;
+}
+
+
+.search-title-icon{
+  width:44px;
+  height:44px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  color:#9cdbff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.24);
+
+  border-radius:12px;
+
+  background:
+    rgba(47,152,232,0.1);
+}
+
+
+.search-title-icon svg{
+  width:22px;
+  height:22px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+.search-title small,
+.card-header small{
+  display:block;
+
+  color:
+    var(--primary-light);
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:1.1px;
+
+  text-transform:uppercase;
+}
+
+
+.search-title h2,
+.card-header h2{
+  margin:
+    5px
+    0
+    0;
+
+  color:#f3faff;
+
+  font-size:17px;
+  font-weight:650;
+}
+
+
+/* =====================================================
+   VISA FORM
+===================================================== */
+
+.visa-form{
+  flex:1;
+  min-width:0;
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(140px,0.85fr)
+    minmax(170px,1fr)
+    minmax(170px,1fr)
+    minmax(150px,0.9fr)
+    auto;
+
+  align-items:end;
+
+  gap:13px;
+}
+
+
+.field{
+  min-width:0;
+}
+
+
+.field label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:
+    rgba(230,241,249,0.65);
+
+  font-size:10px;
+  font-weight:600;
+}
+
+
+.input-wrapper{
+  position:relative;
+}
+
+
+.input-wrapper > svg{
+  position:absolute;
+
+  z-index:2;
+
+  top:50%;
+  left:13px;
+
+  width:16px;
+  height:16px;
+
+  transform:
+    translateY(-50%);
+
+  fill:none;
+
+  stroke:
+    rgba(156,191,216,0.6);
+
+  stroke-width:1.6;
+
+  pointer-events:none;
+}
+
+
+.input-wrapper input{
+  width:100%;
+  height:46px;
+
+  padding:
+    0
+    13px
+    0
+    40px;
+
+  color:#f4faff;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:10px;
+
+  outline:none;
+
+  background:
+    rgba(255,255,255,0.04);
+
+  font-size:11px;
+}
+
+
+.input-wrapper input::placeholder{
+  color:
+    rgba(183,203,219,0.34);
+}
+
+
+.input-wrapper input:focus{
+  border-color:
+    rgba(104,190,248,0.62);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(51,153,229,0.1);
+}
+
+
+.input-wrapper input[type="date"]{
+  color-scheme:dark;
+}
+
+
+.readonly-input input{
+  color:
+    rgba(213,229,240,0.7);
+
+  cursor:not-allowed;
+}
+
+
+.language-selector{
+  height:42px;
+  padding:0 6px;
+  display:flex;
+  align-items:center;
+  gap:3px;
+  border:1px solid rgba(255,255,255,0.11);
+  border-radius:11px;
+  background:rgba(255,255,255,0.035);
+}
+
+.language-selector button{
+  min-width:30px;
+  height:28px;
+  padding:0 7px;
+  color:rgba(211,226,238,0.48);
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  cursor:pointer;
+  font-size:9px;
+  font-weight:700;
+  transition:color 0.18s ease,background 0.18s ease;
+}
+
+.language-selector button:hover{
+  color:#ffffff;
+  background:rgba(255,255,255,0.05);
+}
+
+.language-selector button.active-language{
+  color:#ffffff;
+  background:rgba(47,152,232,0.18);
+}
+
+.language-selector > span{
+  width:1px;
+  height:14px;
+  background:rgba(255,255,255,0.08);
+}
+/* =====================================================
+   COUNTRY AUTOCOMPLETE
+===================================================== */
+
+.country-autocomplete{
+  position:relative;
+}
+
+
+.country-suggestions{
+  position:absolute;
+  z-index:3000;
+
+  top:
+    calc(
+      100% + 8px
+    );
+
+  right:0;
+  left:0;
+
+  max-height:280px;
+
+  overflow-y:auto;
+
+  padding:7px;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,34,55,0.99),
+      rgba(7,22,38,0.99)
+    );
+
+  box-shadow:
+    0 22px 55px
+    rgba(0,0,0,0.48);
+
+  backdrop-filter:blur(18px);
+}
+
+
+.country-suggestions::-webkit-scrollbar{
+  width:6px;
+}
+
+
+.country-suggestions::-webkit-scrollbar-thumb{
+  border-radius:999px;
+
+  background:
+    rgba(120,198,250,0.25);
+}
+
+
+.country-suggestion{
+  width:100%;
+
+  padding:11px 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  color:#ffffff;
+
+  border:0;
+  border-radius:9px;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  text-align:left;
+}
+
+
+.country-suggestion:hover{
+  background:
+    rgba(91,172,231,0.1);
+}
+
+
+.country-suggestion span{
+  font-size:11px;
+}
+
+
+.country-suggestion strong{
+  padding:6px 8px;
+
+  color:#a5ddff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:7px;
+
+  background:
+    rgba(47,152,232,0.09);
+
+  font-size:9px;
+  font-weight:750;
+}
+
+
+/* =====================================================
+   CHECK BUTTON
+===================================================== */
+
+.check-button{
+  min-width:145px;
+  height:46px;
+
+  padding:0 19px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  color:#ffffff;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+
+  cursor:pointer;
+
+  font-size:11px;
+  font-weight:650;
+}
+
+
+.check-button:hover:not(:disabled){
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+.check-button:disabled{
+  opacity:0.55;
+
+  cursor:not-allowed;
+}
+
+
+.check-button svg{
+  width:16px;
+  height:16px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.8;
+}
+
+
+/* =====================================================
+   VISA MESSAGE
+===================================================== */
+
+.visa-message{
+  position:absolute;
+
+  right:24px;
+  bottom:-47px;
+  left:287px;
+
+  margin:0;
+
+  padding:
+    11px
+    13px;
+
+  color:#ffd0d0;
+
+  border:
+    1px solid
+    rgba(255,112,112,0.17);
+
+  border-radius:9px;
+
+  background:
+    rgba(111,28,39,0.92);
+
+  font-size:10px;
+
+  line-height:1.5;
+}
+
+
+/* =====================================================
+   DASHBOARD GRID
+===================================================== */
+
+.dashboard-grid{
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1.75fr)
+    minmax(330px,0.85fr);
+
+  align-items:start;
+
+  gap:25px;
+}
+
+
+.main-column,
+.side-column{
+  display:flex;
+  flex-direction:column;
+
+  gap:25px;
+}
+
+
+/* =====================================================
+   CARDS - ISTE KAO USER MAIN
+===================================================== */
+
+.card{
+  padding:25px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,40,64,0.92),
+      rgba(8,23,40,0.88)
+    );
+
+  box-shadow:
+    0 24px 65px
+    rgba(0,0,0,0.22),
+    inset
+    0
+    1px
+    0
+    rgba(255,255,255,0.045);
+
+  backdrop-filter:blur(12px);
+}
+
+
+.card-header{
+  margin-bottom:21px;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+
+/* =====================================================
+   VISA STATUS
+===================================================== */
+
+.visa-status{
+  padding:
+    7px
+    10px;
+
+  display:inline-flex;
+  align-items:center;
+
+  color:#9ff0c9;
+
+  border:
+    1px solid
+    rgba(101,217,162,0.22);
+
+  border-radius:999px;
+
+  background:
+    rgba(101,217,162,0.07);
+
+  font-size:9px;
+  font-weight:650;
+}
+
+
+.visa-status.invalid-document{
+  color:#ffaaaa;
+
+  border-color:
+    rgba(255,115,115,0.2);
+
+  background:
+    rgba(255,100,100,0.06);
+}
+
+
+/* =====================================================
+   VISA RESULTS
+===================================================== */
+
+.visa-results-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0,1fr)
+    );
+
+  gap:11px;
+}
+
+
+.visa-result-item{
+  min-height:85px;
+
+  padding:
+    12px
+    14px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  gap:5px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.07);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,0.022);
+}
+
+
+.visa-result-item span,
+.document-data span,
+.travel-summary span{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:
+    rgba(187,205,219,0.42);
+
+  font-size:8px;
+  font-weight:600;
+
+  letter-spacing:0.6px;
+
+  text-transform:uppercase;
+}
+
+
+.visa-result-item strong{
+  color:
+    rgba(243,250,255,0.86);
+
+  font-size:11px;
+}
+
+
+/* =====================================================
+   VISA EXCEPTION
+===================================================== */
+
+.visa-exception{
+  margin-top:14px;
+
+  padding:14px;
+
+  border:
+    1px solid
+    rgba(247,198,107,0.17);
+
+  border-radius:10px;
+
+  background:
+    rgba(247,198,107,0.045);
+}
+
+
+.visa-exception strong{
+  color:#f7c66b;
+
+  font-size:10px;
+}
+
+
+.visa-exception p{
+  margin:
+    5px
+    0
+    0;
+
+  color:
+    rgba(205,214,220,0.52);
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+
+/* =====================================================
+   DOCUMENT PREVIEW
+===================================================== */
+
+.document-preview{
+  padding:14px;
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.075);
+
+  border-radius:12px;
+
+  background:
+    rgba(255,255,255,0.024);
+}
+
+
+.document-icon{
+  width:40px;
+  height:40px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  color:#9edcff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:10px;
+
+  background:
+    rgba(47,152,232,0.08);
+}
+
+
+.document-icon svg{
+  width:19px;
+  height:19px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.6;
+}
+
+
+.document-preview > div{
+  min-width:0;
+
+  flex:1;
+}
+
+
+.document-preview div strong,
+.document-preview div span{
+  display:block;
+}
+
+
+.document-preview div strong{
+  font-size:11px;
+}
+
+
+.document-preview div span{
+  margin-top:4px;
+
+  color:
+    rgba(190,208,222,0.45);
+
+  font-size:9px;
+}
+
+
+.document-preview > small{
+  padding:6px 8px;
+
+  color:#94e7be;
+
+  border:
+    1px solid
+    rgba(101,217,162,0.19);
+
+  border-radius:999px;
+
+  background:
+    rgba(101,217,162,0.06);
+
+  font-size:8px;
+}
+
+
+/* =====================================================
+   DOCUMENT DATA / TRAVEL SUMMARY
+===================================================== */
+
+.document-data{
+  margin-top:12px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap:9px;
+}
+
+
+.document-data > div{
+  padding:
+    12px
+    14px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.07);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,0.022);
+}
+
+
+.document-data strong{
+  color:
+    rgba(243,250,255,0.86);
+
+  font-size:11px;
+}
+
+
+.travel-summary{
+  margin-top:12px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:0;
+}
+
+
+.travel-summary > div{
+  padding:
+    11px
+    3px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.06);
+}
+
+
+.travel-summary > div:last-child{
+  border-bottom:0;
+}
+
+
+.travel-summary strong{
+  color:
+    rgba(243,250,255,0.86);
+
+  font-size:10px;
+
+  text-align:right;
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.information-content{
+  display:flex;
+  align-items:flex-start;
+
+  gap:10px;
+}
+
+
+.information-icon{
+  width:38px;
+  height:38px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  color:#9edcff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:10px;
+
+  background:
+    rgba(47,152,232,0.08);
+}
+
+
+.information-icon svg{
+  width:19px;
+  height:19px;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.6;
+}
+
+
+.information-content p{
+  margin:0;
+
+  color:
+    rgba(186,205,220,0.44);
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.dashboard-footer{
+  min-height:68px;
+
+  padding:
+    0
+    max(
+      40px,
+      calc(
+        (100vw - 1360px) / 2
+      )
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  color:
+    rgba(182,200,215,0.4);
+
+  border-top:
+    1px solid
+    rgba(255,255,255,0.065);
+
+  font-size:9px;
+}
+
+
+.dashboard-footer div{
+  display:flex;
+
+  gap:22px;
+}
+
+
+.dashboard-footer a{
+  color:inherit;
+}
+
+
+.dashboard-footer a:hover{
+  color:#ffffff;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+  .visa-search-card{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+
+  .search-title{
+    min-width:0;
+  }
+
+
+  .visa-form{
+    width:100%;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(190px,1fr)
+      );
+  }
+
+
+  .check-button{
+    width:100%;
+  }
+
+
+  .visa-message{
+    position:static;
+
+    width:100%;
+
+    margin-top:15px;
+  }
+
+}
+
+
+@media(max-width:1120px){
+
+  .dashboard-header,
+  .dashboard-content{
+    width:
+      calc(
+        100% - 48px
+      );
+  }
+
+
+  .dashboard-navigation{
+    display:none;
+  }
+
+}
+
+
+@media(max-width:900px){
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+
+  .side-column{
+    display:grid;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      );
+  }
+
+
+  .side-column .card:last-child{
+    grid-column:
+      1 / -1;
+  }
+
+}
+
+
+@media(max-width:680px){
+
+  .dashboard-header,
+  .dashboard-content{
+    width:
+      calc(
+        100% - 30px
+      );
+  }
+
+
+  .profile-copy{
+    display:none;
+  }
+
+
+  .profile-button{
+    min-width:0;
+  }
+
+
+  .welcome-section{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+
+  .document-status-card{
+    width:100%;
+    min-width:0;
+  }
+
+
+  .visa-form{
+    grid-template-columns:1fr;
+  }
+
+
+  .visa-results-grid{
+    grid-template-columns:1fr;
+  }
+
+
+  .side-column{
+    display:flex;
+  }
+
+
+  .dashboard-footer{
+    padding:
+      23px
+      20px;
+
+    flex-direction:column;
+
+    gap:14px;
+  }
+
+}
+
+
+@media(max-width:480px){
+
+  .dashboard-header,
+  .dashboard-content{
+    width:
+      calc(
+        100% - 24px
+      );
+  }
+
+
+  .logo{
+    font-size:18px;
+  }
+
+
+  .logo-icon{
+    width:34px;
+    height:34px;
+  }
+
+
+  .card,
+  .visa-search-card{
+    padding:18px;
+
+    border-radius:14px;
+  }
+
+
+  .welcome-section h1{
+    font-size:38px;
+  }
+
+
+  .search-title h2,
+  .card-header h2{
+    font-size:16px;
+  }
+
+}

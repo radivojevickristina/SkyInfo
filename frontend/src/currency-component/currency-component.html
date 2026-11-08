@@ -1,0 +1,346 @@
+<div class="currency-page">
+
+  <main class="currency-content">
+
+
+    <section class="currency-hero">
+
+      <div class="hero-badge">
+        <span></span>
+        {{'CURRENCY.EYEBROW' | translate}}
+      </div>
+
+      <h1>
+        {{'CURRENCY.TITLE_FIRST' | translate}}
+        <span>
+          {{'CURRENCY.TITLE_SECOND' | translate}}
+        </span>
+      </h1>
+
+      <p>
+        {{'CURRENCY.DESCRIPTION' | translate}}
+      </p>
+
+    </section>
+
+
+
+    <section class="converter-section">
+
+      <div class="section-heading">
+
+        <small>
+          {{'CURRENCY.QUICK_CONVERSION' | translate}}
+        </small>
+
+        <h2>
+          {{'CURRENCY.CONVERTER' | translate}}
+        </h2>
+
+      </div>
+
+
+      <div class="converter-card">
+
+
+        <div class="currency-field amount-field">
+
+          <label for="amount">
+            {{'CURRENCY.AMOUNT' | translate}}
+          </label>
+
+          <div class="input-wrapper">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M8 12h8"></path>
+            </svg>
+
+            <input
+              id="amount"
+              name="amount"
+              min="0"
+              [(ngModel)]="amount"
+              [placeholder]="'CURRENCY.AMOUNT_PLACEHOLDER' | translate"
+            >
+
+          </div>
+
+        </div>
+
+
+
+        <div class="currency-field">
+
+          <label for="fromCurrency">
+            {{'CURRENCY.FROM' | translate}}
+          </label>
+
+          <div class="select-wrapper">
+
+            <select
+              id="fromCurrency"
+              name="fromCurrency"
+              [(ngModel)]="fromCurrency"
+            >
+
+              <option
+                *ngFor="let currency of currencies"
+                [value]="currency"
+              >
+                {{currency}}
+              </option>
+
+            </select>
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m7 10 5 5 5-5"></path>
+            </svg>
+
+          </div>
+
+        </div>
+
+
+
+        <button
+          type="button"
+          class="swap-button"
+          (click)="swapCurrencies()"
+          [attr.aria-label]="'CURRENCY.SWAP' | translate"
+        >
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 7h11"></path>
+            <path d="m15 4 3 3-3 3"></path>
+            <path d="M17 17H6"></path>
+            <path d="m9 14-3 3 3 3"></path>
+          </svg>
+
+        </button>
+
+
+        <!-- TO -->
+
+        <div class="currency-field">
+
+          <label for="toCurrency">
+            {{'CURRENCY.TO' | translate}}
+          </label>
+
+          <div class="select-wrapper">
+
+            <select
+              id="toCurrency"
+              name="toCurrency"
+              [(ngModel)]="toCurrency"
+            >
+
+              <option
+                *ngFor="let currency of currencies"
+                [value]="currency"
+              >
+                {{currency}}
+              </option>
+
+            </select>
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m7 10 5 5 5-5"></path>
+            </svg>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONVERT -->
+
+        <button
+          type="button"
+          class="primary-button convert-button"
+          (click)="convertCurrency()"
+          [disabled]="isLoading || amount<=0"
+        >
+
+          {{
+            (
+              isLoading
+                ? 'CURRENCY.CONVERTING'
+                : 'CURRENCY.CONVERT'
+            ) | translate
+          }}
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- RESULT -->
+
+    <section
+      class="result-section"
+      *ngIf="convertedAmount!=null"
+    >
+
+      <div class="section-heading centered">
+
+        <small>
+          {{'CURRENCY.RESULT' | translate}}
+        </small>
+
+        <h2>
+          {{'CURRENCY.CONVERSION_RESULT' | translate}}
+        </h2>
+
+      </div>
+
+
+      <div class="conversion-card">
+
+        <!-- FROM RESULT -->
+
+        <div class="result-currency">
+
+          <span class="currency-code">
+            {{fromCurrency}}
+          </span>
+
+          <span class="result-label">
+            {{'CURRENCY.YOU_CONVERT' | translate}}
+          </span>
+
+          <strong>
+            {{amount | number:'1.2-2'}}
+          </strong>
+
+          <small>
+            {{fromCurrency}}
+          </small>
+
+        </div>
+
+
+        <!-- ARROW -->
+
+        <div class="conversion-arrow">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"></path>
+            <path d="m13 6 6 6-6 6"></path>
+          </svg>
+
+        </div>
+
+
+        <!-- TO RESULT -->
+
+        <div class="result-currency result-final">
+
+          <span class="currency-code">
+            {{toCurrency}}
+          </span>
+
+          <span class="result-label">
+            {{'CURRENCY.YOU_RECEIVE' | translate}}
+          </span>
+
+          <strong>
+            {{convertedAmount | number:'1.2-2'}}
+          </strong>
+
+          <small>
+            {{toCurrency}}
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- EXCHANGE RATE -->
+
+      <div
+        class="rate-card"
+        *ngIf="exchangeRate"
+      >
+
+        <div>
+
+          <small>
+            {{'CURRENCY.EXCHANGE_RATE' | translate}}
+          </small>
+
+          <strong>
+            1 {{fromCurrency}} =
+            {{exchangeRate | number:'1.2-4'}}
+            {{toCurrency}}
+          </strong>
+
+        </div>
+
+        <span class="rate-badge">
+          {{'CURRENCY.CURRENT_RATE' | translate}}
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ERROR / MESSAGE -->
+
+    <div
+      class="currency-message"
+      *ngIf="messageKey!=''"
+    >
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M12 8v5"></path>
+        <path d="M12 16h.01"></path>
+      </svg>
+
+      <span>
+        {{messageKey | translate}}
+      </span>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="currency-footer">
+
+    <span>
+      © 2026 {{'COMMON.APP_NAME' | translate}}
+    </span>
+
+    <div>
+
+      <a href="#">
+        {{'COMMON.PRIVACY' | translate}}
+      </a>
+
+      <a href="#">
+        {{'COMMON.TERMS' | translate}}
+      </a>
+
+      <a href="#">
+        {{'COMMON.HELP' | translate}}
+      </a>
+
+    </div>
+
+  </footer>
+
+</div>

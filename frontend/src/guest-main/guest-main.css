@@ -1,0 +1,1830 @@
+:host{
+  --background:#06101d;
+  --surface:rgba(10,29,48,0.9);
+  --border:rgba(255,255,255,0.11);
+  --text:#f5f9fc;
+  --muted:#9cabb9;
+  --primary:#2f98e8;
+  --primary-light:#78c6fa;
+  --success:#65d9a2;
+  --warning:#f7c66b;
+
+  display:block;
+  min-height:100vh;
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+
+button,
+input,
+a{
+  font:inherit;
+}
+
+
+button{
+  border:0;
+}
+
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.guest-page{
+  position:relative;
+  isolation:isolate;
+
+  min-height:100vh;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at 80% 12%,
+      rgba(46,139,210,0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 85%,
+      rgba(30,95,150,0.14),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #06101d 0%,
+      #0a2034 52%,
+      #07121f 100%
+    );
+}
+
+
+.guest-page::before{
+  content:"";
+
+  position:absolute;
+  z-index:-3;
+  inset:0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.022) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.022) 1px,
+      transparent 1px
+    );
+
+  background-size:55px 55px;
+
+  opacity:0.4;
+}
+
+
+/* Stara airport pozadina se više ne koristi */
+
+.airport-background,
+.background-overlay{
+  display:none;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+  position:relative;
+  z-index:20;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  height:84px;
+
+  margin:0 auto;
+
+  display:flex;
+  align-items:center;
+  gap:45px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.08);
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  padding:0;
+
+  color:#ffffff;
+
+  font-size:22px;
+  font-weight:700;
+
+  letter-spacing:0;
+
+  cursor:pointer;
+}
+
+
+.logo svg{
+  width:36px;
+  height:36px;
+
+  padding:0;
+
+  fill:
+    rgba(74,172,255,0.18);
+
+  stroke:
+    var(--primary-light);
+
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  border:0;
+  border-radius:0;
+
+  background:none;
+
+  box-shadow:none;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navigation{
+  flex:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  gap:5px;
+}
+
+
+.navigation a{
+  position:relative;
+
+  height:42px;
+
+  padding:0 13px;
+
+  display:flex;
+  align-items:center;
+
+  color:
+    rgba(211,226,238,0.58);
+
+  font-size:12px;
+  font-weight:400;
+
+  white-space:nowrap;
+
+  transition:
+    color 0.2s ease;
+}
+
+
+.navigation a:hover,
+.navigation a.active{
+  color:#ffffff;
+}
+
+
+.navigation a.active::after{
+  content:"";
+
+  position:absolute;
+
+  right:13px;
+  bottom:-21px;
+  left:13px;
+
+  height:2px;
+
+  border-radius:999px;
+
+  background:
+    var(--primary-light);
+}
+
+
+/* =====================================================
+   GUEST HEADER ACTIONS
+===================================================== */
+
+.guest-header-actions{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+}
+
+
+.guest-label{
+  padding:7px 10px;
+
+  color:
+    rgba(194,211,224,0.55);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,0.035);
+
+  font-size:9px;
+  font-weight:650;
+
+  text-transform:uppercase;
+
+  letter-spacing:0.8px;
+}
+
+
+.guest-login-button{
+  height:42px;
+
+  padding:0 15px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  color:#ffffff;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+
+  cursor:pointer;
+
+  font-size:10px;
+  font-weight:650;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.guest-login-button:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+.guest-login-button svg{
+  width:15px;
+  height:15px;
+
+  fill:none;
+
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.guest-content{
+  position:relative;
+  z-index:10;
+
+  width:min(
+    1360px,
+    calc(100% - 80px)
+  );
+
+  margin:0 auto;
+
+  padding:
+    54px
+    0
+    85px;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.guest-welcome{
+  max-width:700px;
+
+  margin-bottom:31px;
+}
+
+
+.hero-label{
+  margin-bottom:17px;
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  color:#9dccf5;
+
+  font-size:10px;
+  font-weight:700;
+
+  text-transform:uppercase;
+
+  letter-spacing:1.6px;
+}
+
+
+.label-line{
+  width:34px;
+  height:1px;
+
+  background:
+    var(--primary-light);
+}
+
+
+.guest-welcome h1{
+  margin:0;
+
+  color:#ffffff;
+
+  font-size:
+    clamp(
+      39px,
+      4vw,
+      58px
+    );
+
+  font-weight:650;
+
+  line-height:1;
+
+  letter-spacing:-2.5px;
+}
+
+
+.guest-welcome h1 span{
+  display:block;
+
+  color:
+    var(--primary-light);
+
+  font-weight:450;
+}
+
+
+.guest-welcome > p{
+  max-width:650px;
+
+  margin:
+    19px
+    0
+    0;
+
+  color:
+    var(--muted);
+
+  font-size:14px;
+
+  line-height:1.65;
+}
+
+
+/* =====================================================
+   GUEST INFO
+===================================================== */
+
+.guest-info{
+  width:fit-content;
+  max-width:650px;
+
+  margin-top:18px;
+
+  padding:
+    11px
+    13px;
+
+  display:flex;
+  align-items:flex-start;
+
+  gap:9px;
+
+  color:
+    rgba(205,224,238,0.6);
+
+  border:
+    1px solid
+    rgba(120,198,250,0.13);
+
+  border-radius:10px;
+
+  background:
+    rgba(47,152,232,0.045);
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+
+.guest-info svg{
+  flex-shrink:0;
+
+  width:16px;
+  height:16px;
+
+  fill:none;
+
+  stroke:
+    var(--primary-light);
+
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   SEARCH CARD
+===================================================== */
+
+.flight-search-card{
+  position:relative;
+
+  margin-bottom:25px;
+
+  padding:24px;
+
+  display:flex;
+  align-items:flex-start;
+
+  gap:28px;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(44,131,198,0.11),
+      rgba(255,255,255,0.028)
+    );
+}
+
+
+.guest-search-card{
+  scroll-margin-top:30px;
+}
+
+
+/* =====================================================
+   SEARCH TITLE
+===================================================== */
+
+.search-title{
+  min-width:235px;
+
+  padding-top:18px;
+
+  display:flex;
+  align-items:center;
+
+  gap:13px;
+}
+
+
+.search-title-icon{
+  width:44px;
+  height:44px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  color:#9cdbff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.24);
+
+  border-radius:12px;
+
+  background:
+    rgba(47,152,232,0.1);
+}
+
+
+.search-title-icon svg{
+  width:22px;
+  height:22px;
+
+  fill:none;
+
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+.search-title small,
+.card-header small,
+.guest-registration-card small{
+  display:block;
+
+  color:
+    var(--primary-light);
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:1.1px;
+
+  text-transform:uppercase;
+}
+
+
+.search-title h2,
+.card-header h2,
+.guest-registration-card h2{
+  margin:
+    5px
+    0
+    0;
+
+  color:#f3faff;
+
+  font-size:17px;
+  font-weight:650;
+}
+
+
+/* =====================================================
+   SEARCH FORM
+===================================================== */
+
+.search-form{
+  flex:1;
+  min-width:0;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(140px,0.85fr)
+    )
+    repeat(
+      2,
+      minmax(180px,1.15fr)
+    )
+    auto;
+
+  align-items:end;
+
+  gap:13px;
+}
+
+
+.field{
+  min-width:0;
+}
+
+
+.field label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:
+    rgba(230,241,249,0.65);
+
+  font-size:10px;
+  font-weight:600;
+}
+
+
+.input-wrapper{
+  position:relative;
+}
+
+
+.input-wrapper > svg{
+  position:absolute;
+  z-index:2;
+
+  top:50%;
+  left:13px;
+
+  width:16px;
+  height:16px;
+
+  transform:
+    translateY(-50%);
+
+  fill:none;
+
+  stroke:
+    rgba(156,191,216,0.6);
+
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  pointer-events:none;
+}
+
+
+.input-wrapper input{
+  width:100%;
+  height:46px;
+
+  padding:
+    0
+    13px
+    0
+    40px;
+
+  color:#f4faff;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:10px;
+
+  outline:none;
+
+  background:
+    rgba(255,255,255,0.04);
+
+  font-size:11px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.input-wrapper input::placeholder{
+  color:
+    rgba(183,203,219,0.34);
+}
+
+
+.input-wrapper input:hover{
+  background:
+    rgba(255,255,255,0.055);
+}
+
+
+.input-wrapper input:focus{
+  border-color:
+    rgba(104,190,248,0.62);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(51,153,229,0.1);
+}
+
+
+.input-wrapper input[type="date"]{
+  color-scheme:dark;
+}
+
+
+/* =====================================================
+   SEARCH BUTTON
+===================================================== */
+
+.search-button{
+  min-width:145px;
+  height:46px;
+
+  padding:0 19px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  color:#ffffff;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+
+  cursor:pointer;
+
+  font-size:11px;
+  font-weight:650;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+.search-button:hover:not(:disabled){
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+.search-button:disabled{
+  opacity:0.55;
+
+  cursor:not-allowed;
+}
+
+
+.search-button svg{
+  width:16px;
+  height:16px;
+
+  fill:none;
+
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   AIRPORT AUTOCOMPLETE
+===================================================== */
+
+.airport-autocomplete{
+  position:relative;
+}
+
+
+.airport-suggestions{
+  position:absolute;
+  z-index:3000;
+
+  top:
+    calc(
+      100% + 8px
+    );
+
+  right:0;
+  left:0;
+
+  max-height:290px;
+
+  overflow-y:auto;
+
+  padding:7px;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,34,55,0.99),
+      rgba(7,22,38,0.99)
+    );
+
+  box-shadow:
+    0 22px 55px
+    rgba(0,0,0,0.48);
+
+  backdrop-filter:blur(18px);
+}
+
+
+.airport-suggestions::-webkit-scrollbar{
+  width:6px;
+}
+
+
+.airport-suggestions::-webkit-scrollbar-thumb{
+  border-radius:999px;
+
+  background:
+    rgba(120,198,250,0.25);
+}
+
+
+.airport-suggestion{
+  width:100%;
+
+  padding:
+    11px
+    12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:14px;
+
+  color:#ffffff;
+
+  border:0;
+  border-radius:9px;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  text-align:left;
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+
+.airport-suggestion:hover{
+  background:
+    rgba(91,172,231,0.1);
+
+  transform:translateX(2px);
+}
+
+
+.airport-suggestion > span:first-child{
+  min-width:0;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:4px;
+}
+
+
+.airport-suggestion strong{
+  color:#f5fbff;
+
+  font-size:11px;
+  font-weight:700;
+}
+
+
+.airport-suggestion small{
+  max-width:230px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+  color:
+    rgba(190,208,222,0.5);
+
+  font-size:9px;
+}
+
+
+.airport-code{
+  flex:0 0 auto;
+
+  padding:
+    6px
+    8px;
+
+  color:#a5ddff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:7px;
+
+  background:
+    rgba(47,152,232,0.09);
+
+  font-size:9px;
+  font-weight:750;
+
+  letter-spacing:0.5px;
+}
+
+
+/* =====================================================
+   RESULTS CARD
+===================================================== */
+
+.search-results-card{
+  margin-top:25px;
+
+  padding:25px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,40,64,0.92),
+      rgba(8,23,40,0.88)
+    );
+
+  box-shadow:
+    0 24px 65px
+    rgba(0,0,0,0.22),
+    inset
+    0
+    1px
+    0
+    rgba(255,255,255,0.045);
+
+  backdrop-filter:blur(12px);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.card-header{
+  margin-bottom:18px;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+
+.card-header > span{
+  padding:
+    7px
+    10px;
+
+  color:#9edcff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.18);
+
+  border-radius:999px;
+
+  background:
+    rgba(47,152,232,0.07);
+
+  font-size:9px;
+  font-weight:700;
+}
+
+
+.search-message{
+  margin:
+    0
+    0
+    14px;
+
+  padding:
+    13px
+    15px;
+
+  color:
+    rgba(215,230,241,0.72);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.07);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,0.025);
+
+  font-size:10px;
+}
+
+
+/* =====================================================
+   FLIGHT RESULTS
+===================================================== */
+
+.tracked-list{
+  display:flex;
+  flex-direction:column;
+
+  gap:12px;
+}
+
+
+.flight-search-result{
+  width:100%;
+
+  padding:18px;
+
+  display:grid;
+
+  grid-template-columns:
+    46px
+    minmax(260px,1.5fr)
+    minmax(190px,0.8fr)
+    auto;
+
+  align-items:center;
+
+  gap:18px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.036),
+      rgba(47,152,232,0.035)
+    );
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.flight-search-result:hover{
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(120,198,250,0.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.052),
+      rgba(47,152,232,0.055)
+    );
+
+  box-shadow:
+    0 15px 35px
+    rgba(0,0,0,0.16);
+}
+
+
+.airline{
+  width:46px;
+  height:46px;
+
+  display:grid;
+  place-items:center;
+
+  color:#9edcff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:12px;
+
+  background:
+    rgba(47,152,232,0.08);
+
+  font-size:10px;
+  font-weight:750;
+}
+
+
+.tracked-route{
+  min-width:0;
+}
+
+
+.tracked-route > strong{
+  display:block;
+
+  color:#f5fbff;
+
+  font-size:13px;
+  font-weight:700;
+
+  line-height:1.4;
+}
+
+
+.flight-company{
+  display:block;
+
+  margin-top:7px;
+
+  color:
+    rgba(191,211,225,0.55);
+
+  font-size:10px;
+}
+
+
+.flight-company b{
+  color:#9edcff;
+
+  font-weight:750;
+}
+
+
+.flight-extra-data{
+  margin-top:11px;
+
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:7px;
+}
+
+
+.flight-extra-data span{
+  padding:
+    6px
+    8px;
+
+  color:
+    rgba(207,225,239,0.58);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.075);
+
+  border-radius:7px;
+
+  background:
+    rgba(255,255,255,0.025);
+
+  font-size:8px;
+}
+
+
+.flight-extra-data strong{
+  color:#ffffff;
+}
+
+
+/* =====================================================
+   TIME
+===================================================== */
+
+.tracked-time{
+  min-width:190px;
+
+  padding-left:18px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:7px;
+
+  border-left:
+    1px solid
+    rgba(255,255,255,0.07);
+}
+
+
+.tracked-time strong{
+  color:#f5fbff;
+
+  font-size:10px;
+  font-weight:700;
+}
+
+
+.tracked-time small{
+  color:
+    rgba(190,208,222,0.52);
+
+  font-size:9px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.flight-result-status{
+  width:fit-content;
+
+  margin-top:2px;
+
+  padding:
+    5px
+    8px;
+
+  color:#93e6bd !important;
+
+  border:
+    1px solid
+    rgba(101,217,162,0.18);
+
+  border-radius:999px;
+
+  background:
+    rgba(101,217,162,0.06);
+
+  font-size:8px !important;
+
+  font-weight:700;
+}
+
+
+/* =====================================================
+   GUEST TRACK BUTTON
+===================================================== */
+
+.guest-track-button{
+  min-width:145px;
+  height:40px;
+
+  padding:
+    0
+    14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#ffffff;
+
+  border:
+    1px solid
+    rgba(120,198,250,0.2);
+
+  border-radius:10px;
+
+  background:
+    rgba(47,152,232,0.08);
+
+  cursor:pointer;
+
+  font-size:9px;
+  font-weight:700;
+
+  text-align:center;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+
+.guest-track-button:hover{
+  transform:translateY(-1px);
+
+  border-color:
+    rgba(120,198,250,0.32);
+
+  background:
+    rgba(47,152,232,0.16);
+}
+
+
+/* =====================================================
+   REGISTRATION CARD
+===================================================== */
+
+.guest-registration-card{
+  margin-top:25px;
+
+  padding:25px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:30px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,40,64,0.92),
+      rgba(8,23,40,0.88)
+    );
+
+  box-shadow:
+    0 24px 65px
+    rgba(0,0,0,0.22);
+}
+
+
+.guest-registration-card > div:first-child{
+  max-width:650px;
+}
+
+
+.guest-registration-card p{
+  margin:
+    8px
+    0
+    0;
+
+  color:
+    var(--muted);
+
+  font-size:10px;
+
+  line-height:1.6;
+}
+
+
+.guest-registration-actions{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+}
+
+
+.primary-button,
+.secondary-button{
+  min-width:125px;
+  height:42px;
+
+  padding:0 15px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  font-size:10px;
+  font-weight:650;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+
+.primary-button{
+  color:#ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7ed9,
+      #36a5f5
+    );
+}
+
+
+.primary-button:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 12px 28px
+    rgba(31,126,217,0.28);
+}
+
+
+.secondary-button{
+  color:
+    rgba(222,236,246,0.7);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+  background:
+    rgba(255,255,255,0.025);
+}
+
+
+.secondary-button:hover{
+  color:#ffffff;
+
+  background:
+    rgba(255,255,255,0.055);
+}
+
+/* FOOTER */
+
+.dashboard-footer {
+  min-height: 68px;
+
+  padding:
+    0
+    max(40px, calc((100vw - 1360px) / 2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: rgba(182, 200, 215, 0.4);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.065);
+
+  font-size: 9px;
+}
+
+.dashboard-footer div {
+  display: flex;
+  gap: 22px;
+}
+
+.language-selector{
+  height:42px;
+  padding:0 6px;
+
+  display:flex;
+  align-items:center;
+  gap:3px;
+
+  border:1px solid rgba(255,255,255,0.11);
+  border-radius:11px;
+
+  background:rgba(255,255,255,0.035);
+}
+
+
+.language-selector button{
+  min-width:30px;
+  height:28px;
+
+  padding:0 7px;
+
+  color:rgba(211,226,238,0.48);
+
+  border:0;
+  border-radius:7px;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  font-size:9px;
+  font-weight:700;
+
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+
+.language-selector button:hover{
+  color:#ffffff;
+
+  background:rgba(255,255,255,0.05);
+}
+
+
+.language-selector button.active-language{
+  color:#ffffff;
+
+  background:rgba(47,152,232,0.18);
+}
+
+
+.language-selector > span{
+  width:1px;
+  height:14px;
+
+  background:rgba(255,255,255,0.08);
+}
+/* KRAJ  */
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1300px){
+
+  .flight-search-card{
+    flex-direction:column;
+  }
+
+
+  .search-title{
+    min-width:0;
+
+    padding-top:0;
+  }
+
+
+  .search-form{
+    width:100%;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(210px,1fr)
+      );
+  }
+
+
+  .search-button{
+    width:100%;
+  }
+
+}
+
+
+@media(max-width:1120px){
+
+  .header,
+  .guest-content{
+    width:
+      calc(
+        100% - 48px
+      );
+  }
+
+
+  .navigation{
+    display:none;
+  }
+
+}
+
+
+@media(max-width:1000px){
+
+  .flight-search-result{
+    grid-template-columns:
+      46px
+      minmax(220px,1fr)
+      minmax(180px,0.8fr);
+  }
+
+
+  .guest-track-button{
+    grid-column:
+      2 / -1;
+
+    width:100%;
+  }
+
+
+  .guest-registration-card{
+    align-items:flex-start;
+
+    flex-direction:column;
+  }
+
+}
+
+
+@media(max-width:680px){
+
+  .header,
+  .guest-content{
+    width:
+      calc(
+        100% - 30px
+      );
+  }
+
+
+  .header{
+    height:70px;
+
+    gap:20px;
+  }
+
+
+  .guest-label{
+    display:none;
+  }
+
+
+  .guest-login-button{
+    height:38px;
+
+    padding:
+      0
+      12px;
+  }
+
+
+  .guest-content{
+    padding-top:40px;
+  }
+
+
+  .guest-welcome h1{
+    font-size:38px;
+
+    letter-spacing:-2px;
+  }
+
+
+  .guest-welcome > p{
+    font-size:13px;
+  }
+
+
+  .search-form{
+    grid-template-columns:1fr;
+  }
+
+
+  .flight-search-card,
+  .search-results-card,
+  .guest-registration-card{
+    padding:18px;
+
+    border-radius:14px;
+  }
+
+
+  .flight-search-result{
+    padding:16px;
+
+    grid-template-columns:
+      42px
+      minmax(0,1fr);
+
+    align-items:start;
+
+    gap:13px;
+  }
+
+
+  .airline{
+    width:42px;
+    height:42px;
+  }
+
+
+  .tracked-time{
+    grid-column:
+      1 / -1;
+
+    min-width:0;
+
+    padding:
+      13px
+      0
+      0;
+
+    border-top:
+      1px solid
+      rgba(255,255,255,0.07);
+
+    border-left:0;
+  }
+
+
+  .guest-track-button{
+    grid-column:
+      1 / -1;
+
+    width:100%;
+  }
+
+
+  .guest-registration-actions{
+    width:100%;
+  }
+
+
+  .primary-button,
+  .secondary-button{
+    flex:1;
+  }
+
+
+  .dashboard-footer{
+    padding:23px 20px;
+    flex-direction:column;
+    gap:14px;
+  }
+
+}
+
+
+@media(max-width:480px){
+
+  .header,
+  .guest-content{
+    width:
+      calc(
+        100% - 24px
+      );
+  }
+
+
+  .logo{
+    font-size:18px;
+  }
+
+
+  .logo svg{
+    width:34px;
+    height:34px;
+  }
+
+
+  .guest-header-actions{
+    gap:7px;
+  }
+
+
+  .guest-registration-actions{
+    flex-direction:column;
+  }
+
+
+  .primary-button,
+  .secondary-button{
+    width:100%;
+  }
+
+}

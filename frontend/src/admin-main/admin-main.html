@@ -1,0 +1,150 @@
+<div class="admin-page">
+
+    <header class="admin-header">
+
+        <div class="admin-brand">
+
+            <div class="admin-logo">
+                SI
+            </div>
+
+            <div class="admin-title">
+                <strong>SkyInfo</strong>
+                <span>Administration</span>
+            </div>
+
+        </div>
+
+        <button
+            class="logout-button"
+            (click)="logout()"
+        >
+            LOGOUT
+        </button>
+
+    </header>
+
+
+    <main class="users-container">
+
+        <section class="users-header">
+
+            <div class="header-label">
+                <span class="header-line"></span>
+                ADMIN PANEL
+            </div>
+
+            <h1>
+                Manage
+                <span>Users.</span>
+            </h1>
+
+            <p>
+                View and manage all registered SkyInfo users
+                from the administration panel.
+            </p>
+
+        </section>
+
+
+        <div class="users-toolbar">
+
+            <div class="users-count">
+                Registered users
+                <strong>{{ allUsers.length }}</strong>
+            </div>
+
+        </div>
+
+
+        <section class="users-list">
+
+            <div
+                class="user-card"
+                *ngFor="let user of allUsers"
+            >
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+                        {{ user.firstName?.charAt(0) }}{{user.lastName?.charAt(0)}}
+                    </div>
+
+                    <div class="user-details">
+
+                        <h3>
+                            {{ user.firstName }}
+                            {{ user.lastName }}
+                        </h3>
+
+                        <p>
+                            {{ user.email }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="delete-button"
+                    (click)="delete(user._id)"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+
+            <div
+                class="users-empty"
+                *ngIf="allUsers.length === 0"
+            >
+
+                <h3>
+                    No users found
+                </h3>
+
+                <p>
+                    There are currently no registered users.
+                </p>
+
+            </div>
+
+        </section>
+
+        <div class="notification-card">
+
+            <h2>Kreiranje obaveštenja</h2>
+
+            <label>Vrsta obaveštenja</label>
+
+            <select [(ngModel)]="notificationType">
+                <option value="">Izaberite vrstu obaveštenja</option>
+                <option value="terminal_closure">Zatvoren terminal</option>
+                <option value="airport_entrance_closure">Zatvoren ulaz</option>
+                <option value="airport_area_closure">Zatvoren deo aerodroma</option>
+                <option value="airport_maintenance">Radovi na aerodromu</option>
+                <option value="airport_general">Opšte obaveštenje</option>
+            </select>
+
+            <label>Dodatni podatak</label>
+
+            <input
+                type="text"
+                [(ngModel)]="notificationParam"
+                placeholder="Npr. Terminal 2">
+
+            <button (click)="createNotification()">
+                Pošalji obaveštenje
+            </button>
+
+            <p *ngIf="notificationMessage">
+                {{notificationMessage}}
+            </p>
+
+            </div>
+
+    </main>
+
+</div>

@@ -1,0 +1,238 @@
+<header class="app-header">
+
+  <button
+    type="button"
+    class="logo"
+    [routerLink]="homeRoute"
+  >
+
+    <span class="logo-icon">
+
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M39 8 26 38c-.8 1.9-3.4 2-4.4.2l-5.3-10-10.2-5.3c-1.8-1-1.7-3.6.2-4.4L36.2 5.5C38.1 4.7 39.8 6.1 39 8Z"></path>
+        <path d="m16.3 28.2 11.5-11.5"></path>
+      </svg>
+
+    </span>
+
+    <span>
+      {{'COMMON.APP_NAME' | translate}}
+    </span>
+
+  </button>
+
+
+  <nav class="about-navigation">
+
+    <button
+      type="button"
+      [routerLink]="homeRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.HOME' | translate}}
+    </button>
+
+    <button
+      type="button"
+      [routerLink]="flightsRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.FLIGHTS' | translate}}
+    </button>
+
+    <button
+      type="button"
+      [routerLink]="mapRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.AIRPORT_MAP' | translate}}
+    </button>
+
+    <button
+      type="button"
+      [routerLink]="visaRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.VISAS' | translate}}
+    </button>
+
+    <button
+      *ngIf="isLoggedIn"
+      type="button"
+      routerLink="/user/documents"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.DOCUMENTS' | translate}}
+    </button>
+
+    <button
+      type="button"
+      routerLink="/currency"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.CURRENCY' | translate}}
+    </button>
+
+    <button
+      type="button"
+      routerLink="/about"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      {{'COMMON.ABOUT' | translate}}
+    </button>
+
+
+  </nav>
+
+
+  <div class="header-actions">
+
+    <div class="language-selector">
+
+      <button
+        type="button"
+        [class.active-language]="currentLanguage=='sr'"
+        (click)="changeLanguage('sr')"
+      >
+        SR
+      </button>
+
+      <span></span>
+
+      <button
+        type="button"
+        [class.active-language]="currentLanguage=='en'"
+        (click)="changeLanguage('en')"
+      >
+        EN
+      </button>
+
+      <span></span>
+
+      <button
+        type="button"
+        [class.active-language]="currentLanguage=='es'"
+        (click)="changeLanguage('es')"
+      >
+        ES
+      </button>
+
+    </div>
+
+
+    <!-- GOST -->
+
+    <button
+      *ngIf="!isLoggedIn"
+      type="button"
+      class="account-button"
+      routerLink="/login"
+    >
+      {{'COMMON.LOGIN' | translate}}
+    </button>
+
+
+    <!-- ULOGOVAN KORISNIK -->
+
+    <ng-container *ngIf="isLoggedIn">
+
+      <button
+        type="button"
+        class="notification-button"
+        [attr.aria-label]="'COMMON.NOTIFICATIONS' | translate"
+        routerLink="/user/notification"
+      >
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"></path>
+          <path d="M10 21h4"></path>
+        </svg>
+
+        <span
+          *ngIf="numberUnread>0"
+          class="notification-dot"
+        ></span>
+
+      </button>
+
+
+      <div class="profile-wrapper">
+
+        <button
+          type="button"
+          class="profile-button"
+          (click)="toggleProfileMenu()"
+        >
+
+          <span class="profile-avatar">
+            {{
+              user.firstName.charAt(0) +
+              user.lastName.charAt(0)
+            }}
+          </span>
+
+
+          <span class="profile-copy">
+
+            <strong>
+              {{user.firstName}}
+            </strong>
+
+            <small>
+              {{user.username}}
+            </small>
+
+          </span>
+
+
+          <svg
+            class="profile-arrow"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="m6 9 6 6 6-6"></path>
+          </svg>
+
+        </button>
+
+
+        <div
+          class="profile-menu"
+          *ngIf="profileMenuOpen"
+        >
+
+          <button
+            type="button"
+            routerLink="/user/profile"
+            (click)="closeProfileMenu()"
+          >
+            {{'COMMON.MY_PROFILE' | translate}}
+          </button>
+
+          <span></span>
+
+
+          <button
+            type="button"
+            class="logout-button"
+            (click)="logout()"
+          >
+            {{'COMMON.LOGOUT' | translate}}
+          </button>
+
+        </div>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</header>
